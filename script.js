@@ -13,11 +13,7 @@
 const EMAILJS_PUBLIC_KEY  = "6ck12n75Ku0jwZinW";
 const EMAILJS_SERVICE_ID  = "service_ee9a096";
 const EMAILJS_TEMPLATE_ID = "template_kco6uyf";
- 
-/* БЕЗОПАСНОСТЬ: прямой email в открытом виде в коде легко собирают
-   спам-боты. После активации формы на formsubmit.co там выдаётся
-   персональный хэш-эндпоинт вида https://formsubmit.co/xxxxxxxxx —
-   рекомендуется заменить им FORMSUBMIT_URL и оба "action" в PayPal.js. */
+
 const FORMSUBMIT_URL = "https://formsubmit.co/lyvero.company@gmail.com";
  
  
@@ -39,10 +35,6 @@ function sendCustomerConfirmationEmail(params) {
 // =========================================================================
 // HTML ESCAPE
 // -------------------------------------------------------------------------
-// Единственная функция экранирования на весь файл (раньше была
-// продублирована в двух местах — вторая копия незаметно перекрывала
-// первую; оставлена одна, чтобы не путать при дальнейшей доработке).
-// =========================================================================
  
 function escapeHTML(value) {
     return String(value ?? "")
@@ -67,30 +59,7 @@ const carrierLocatorLinks = {
     europe: "https://www.smartpost.ee/"
 };
  
-// =========================================================================
-// ДАННЫЕ О ТОВАРАХ И ИХ ТЕКУЩЕМ ВЫБОРЕ ДЛЯ МОДАЛКИ PAYPAL
-//
-// TODO ДЛЯ НОВЫХ ТОВАРОВ "new-product-1" / "new-product-2":
-//  1) поменять id на реальный (и точно так же — в index.html
-//     в data-product-id, и в объекте productNames ниже)
-//  2) вписать реальное name / price
-//  3) вписать реальные пути к картинкам вместо TODO-...
-//
-// ПРОВЕРЬ ВРУЧНУЮ (несостыковки путей, найденные при аудите — их нельзя
-// исправить вслепую без доступа к реальной папке images/ на сервере):
-//  - "signal-lost": data-white в index.html указывает на
-//    "images/TODO-new-3-white.png" — незаполненный плейсхолдер.
-//  - "no-kings": в этом объекте colors.black указывает на
-//    "images/No Kings.jpg", но в index.html для No Kings в селекте
-//    цвета доступен только "white", а data-black вообще пустой —
-//    похоже на неиспользуемые/устаревшие данные.
-//  - в data-images-* на некоторых карточках (No Kings, Time to live)
-//    часть путей начинается с "img/" вместо "images/", плюс опечатка
-//    "No KIngs-back.png" — с большой "I". Если файлы реально лежат
-//    в "images/", карусель для этих ракурсов будет показывать разбитую
-//    картинку.
-// =========================================================================
- 
+
 const products = [
     { id: 'signal-lost', name: 'Signal Lost', price: 18.00, colors: { black: 'images/signal-front.jpg', white: 'images/TODO-new-3-white.png' } },
     { id: 'no-kings', name: 'No Kings', price: 18.00, colors: { black: 'images/No Kings.jpg', white: 'images/No Kings.png' } },

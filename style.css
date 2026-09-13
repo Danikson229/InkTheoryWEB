@@ -1946,33 +1946,20 @@ a {
    ========================================================================= */
 
 @media (max-width: 1024px) {
-
-    .main-title {
-        font-size: 76px;
-    }
-
-    .catalog-title {
-        font-size: 44px;
-    }
-
-    .nav-links {
-        gap: 24px;
-    }
-
+    .main-title { font-size: 76px; }
+    .catalog-title { font-size: 44px; }
+    .nav-links { gap: 24px; }
 }
 
 @media (max-width: 768px) {
-
-    .main-header {
-        padding: 8px 3vw 0;
-    }
+    .main-header { padding: 14px 3vw 0; }
 
     .nav-inner {
         height: auto;
         flex-direction: column;
-        gap: 8px;
-        padding: 9px 16px;
-        border-radius: 14px;
+        gap: 14px;
+        padding: 16px 20px;
+        border-radius: 16px;
     }
 
     .nav-links {
@@ -1981,25 +1968,17 @@ a {
         justify-content: center;
     }
 
-    .nav-links a {
-        font-size: 13px;
-    }
+    .nav-links a { font-size: 13px; }
 
     .header-icons {
-       width: 100%;
-       justify-content: center;
-       align-items: center;
-       flex-wrap: nowrap;
-       gap: 14px;
+        width: 100%;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 14px;
     }
 
-    #search-input {
-        width: 90px;
-    }
-
-    #search-input:focus {
-        width: 120px;
-    }
+    #search-input { width: 90px; }
+    #search-input:focus { width: 120px; }
 
     .search-results {
         left: 50%;
@@ -2011,242 +1990,70 @@ a {
         transform: translateX(-50%) translateY(0);
     }
 
+    .cart-window {
+        right: auto;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    @keyframes cartIn {
+        to { opacity: 1; transform: translateX(-50%) translateY(0); }
+    }
+
     .hero {
         padding: 0 6vw;
         text-align: center;
         justify-content: center;
     }
 
-    .hero-content {
-        margin: 130px auto 60px;
-    }
+    .hero-content { margin: 130px auto 60px; }
 
-    .ink-stroke {
-        margin-left: auto;
-        margin-right: auto;
-    }
+    .ink-stroke { margin-left: auto; margin-right: auto; }
 
-    .main-title {
-        font-size: 52px;
-    }
+    .main-title { font-size: 52px; }
+    .main-subtitle { font-size: 17px; }
+    .scroll-cue { display: none; }
 
-    .main-subtitle {
-        font-size: 17px;
-    }
-
-    .scroll-cue {
-        display: none;
-    }
-
-    .catalog {
-        padding: 90px 3vw 60px;
-    }
-
-    .catalog-title {
-        font-size: 34px;
-    }
-
-    /* ===== КАТАЛОГ В 2 КОЛОНКИ ===== */
+    .catalog { padding: 90px 4vw 60px; }
+    .catalog-title { font-size: 34px; }
 
     .products-grid {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 12px;
-        width: 100%;
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+        gap: 20px;
     }
 
-    .product-card {
-        min-width: 0;
-        border-radius: 14px;
-        overflow: hidden;
-    }
-
-    .product-image {
-        height: 230px;
-    }
-
-    .product-body {
-        padding: 12px;
-    }
-
-    .product-body h3 {
-        font-size: 16px;
-    }
-
-    .product-price {
-        font-size: 16px;
-    }
-
-    .options {
-        gap: 7px;
-    }
-
-    .option-row {
-        gap: 5px;
-    }
-
-    .option-row label {
-        font-size: 11px;
-    }
-
-    .option-row select {
-        width: 100%;
-        min-width: 0;
-        font-size: 11px;
-        padding: 7px 6px;
-    }
-
-    .product-buttons {
-        flex-direction: column;
-        gap: 7px;
-    }
-
-    .product-buttons button {
-        width: 100%;
-        min-height: 40px;
-        padding: 8px 6px;
-        font-size: 11px;
-    }
-
-    .footer {
-        padding: 60px 6% 30px;
-    }
-
-    .footer-content {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-        gap: 34px;
-    }
-
-    .footer-about,
-    .footer-contacts {
-        max-width: 100%;
-    }
-
-    .social-icons {
-        justify-content: center;
-    }
-
+    .footer { padding: 60px 6% 30px; }
+    .footer-content { flex-direction: column; align-items: center; text-align: center; gap: 34px; }
+    .footer-about, .footer-contacts { max-width: 100%; }
+    .social-icons { justify-content: center; }
 }
-
-
-/* ===== МАЛЕНЬКИЕ ТЕЛЕФОНЫ ===== */
 
 @media (max-width: 480px) {
-
-    .main-title {
-        font-size: 40px;
-    }
-
-    .catalog {
-        padding-left: 3vw;
-        padding-right: 3vw;
-    }
-
-    .products-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 10px;
-    }
-
-    .product-image {
-        height: 200px;
-    }
-
-    .product-body {
-        padding: 10px;
-    }
-
-    .product-body h3 {
-        font-size: 15px;
-    }
-
-    .product-price {
-        font-size: 15px;
-    }
-
-    .option-row label {
-        font-size: 10px;
-    }
-
-    .option-row select {
-        font-size: 10px;
-        padding: 7px 5px;
-    }
-
-    .product-buttons {
-        gap: 6px;
-    }
-
-    .product-buttons button {
-        min-height: 38px;
-        font-size: 10px;
-        padding: 7px 4px;
-    }
-
+    .main-title { font-size: 40px; }
+    .products-grid { grid-template-columns: 1fr; }
 }
 
-
-/* ===== ОЧЕНЬ МАЛЕНЬКИЕ ЭКРАНЫ ===== */
-
-@media (max-width: 360px) {
-
-    .products-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 8px;
-    }
-
-    .product-image {
-        height: 180px;
-    }
-
-    .product-body {
-        padding: 8px;
-    }
-
-    .product-body h3 {
-        font-size: 14px;
-    }
-
-    .product-buttons button {
-        font-size: 9px;
-        min-height: 36px;
-    }
-
-}
-
-
-/* =========================================================================
-   УВАЖЕНИЕ К REDUCED-MOTION
-   ========================================================================= */
-
+/* уважение к reduced-motion */
 @media (prefers-reduced-motion: reduce) {
-
-    *,
-    *::before,
-    *::after {
+    *, *::before, *::after {
         animation-duration: 0.001ms !important;
         animation-iteration-count: 1 !important;
         transition-duration: 0.001ms !important;
         scroll-behavior: auto !important;
     }
-
 }
 
-
 /* =========================================================================
-   МОДАЛЬНОЕ ОКНО БЫСТРОЙ ОПЛАТЫ
+   МОДАЛЬНОЕ ОКНО БЫСТРОЙ ОПЛАТЫ (задаётся через JS, стили-подложка)
    ========================================================================= */
-
 #paypal-fast-modal input,
 #paypal-fast-modal textarea,
 #paypal-fast-modal select {
     font-family: 'Jura', sans-serif;
 }
 
-
 /* =========================================================================
-   КАРТА ВЫБОРА МЕСТА ДОСТАВКИ
+   КАРТА ВЫБОРА МЕСТА ДОСТАВКИ (внутри модального окна оформления заказа)
    ========================================================================= */
 
 .delivery-map-block {
@@ -2326,9 +2133,7 @@ a {
     line-height: 1.4;
 }
 
-
-/* тёмная тема для попапов Leaflet */
-
+/* тёмная тема для попапов Leaflet, чтобы они не выбивались из дизайна */
 .leaflet-popup-content-wrapper,
 .leaflet-popup-tip {
     background: #17141b;
@@ -2337,4 +2142,12 @@ a {
 
 .leaflet-container a.leaflet-popup-close-button {
     color: #948c7f;
+}
+
+/* ===== СТРЕЛКИ КАРУСЕЛИ НА ТЕЛЕФОНАХ ===== */
+
+@media (max-width: 768px) {
+    .carousel-btn {
+        display: none !important;
+    }
 }
