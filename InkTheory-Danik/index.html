@@ -1,0 +1,1718 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>InkTheory — Чернила, которые говорят за тебя</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Jura:wght@300..700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Leaflet -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" defer></script>
+
+    <!-- EmailJS -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js" defer></script>
+
+    <!-- PayPal -->
+    <script src="https://www.paypal.com/sdk/js?client-id=BAAsgjEdtE_Fz30RCffVSOFut6S5wmv0D1-UGDR533Jw7ZelJe4V5Go125pzAkQ78EjaNn6FU8KIdBzm6M&currency=EUR"></script>
+    <script src="script.js" defer></script>
+    <script src="PayPal.js" defer></script>
+
+
+    <style>
+        .product-image-wrap .gallery-model-image {
+            object-fit: contain !important;
+            object-position: center center !important;
+            background: #0e0d10;
+        }
+
+        .product-image-wrap .gallery-model-placeholder {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+            background: #0e0d10;
+            color: #8d8890;
+            font-size: 13px;
+            letter-spacing: .04em;
+            text-align: center;
+        }
+
+        .product-image-wrap .gallery-model-placeholder::after {
+            content: 'PHOTO OF MODEL';
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="grain"></div>
+
+<header class="main-header" id="siteNav">
+
+    <div class="nav-inner">
+
+        <!-- LOGO -->
+        <a href="#top" class="logo">
+            Ink<em>Theory</em>
+        </a>
+
+
+        <!-- NAVIGATION -->
+        <nav class="nav-links">
+
+            <a
+                href="#catalog"
+                id="lang-nav-catalog"
+            >
+                Каталог
+            </a>
+
+            <a
+                href="#footer"
+                id="lang-nav-collections"
+            >
+                О нас
+            </a>
+
+            <a
+                href="#footer"
+                id="lang-nav-contacts"
+            >
+                Контакты
+            </a>
+
+        </nav>
+
+
+        <!-- HEADER ICONS -->
+        <div class="header-icons">
+
+
+            <!-- SEARCH -->
+            <div class="search-wrap">
+
+                <img
+                    src="search.svg"
+                    alt="Поиск"
+                    class="icon search-icon"
+                >
+
+                <input
+                    type="text"
+                    id="search-input"
+                    placeholder="Поиск..."
+                    autocomplete="off"
+                >
+
+                <div
+                    class="search-results"
+                    id="search-results"
+                ></div>
+
+            </div>
+
+
+            <!-- LANGUAGE -->
+            <select
+                id="language-select"
+                aria-label="Выбор языка"
+            >
+
+                <option value="ru">
+                    RUS
+                </option>
+
+                <option value="en">
+                    ENG
+                </option>
+
+                <option value="et">
+                    EST
+                </option>
+
+            </select>
+
+
+            <!-- ===================================================== -->
+            <!-- КОРЗИНА -->
+            <!-- ===================================================== -->
+
+            <div class="cart-wrapper">
+
+
+                <!-- CART BUTTON -->
+                <button
+                    type="button"
+                    class="cart-trigger"
+                    aria-label="Открыть корзину"
+                    aria-expanded="false"
+                >
+
+                    <img
+                        src="shopping-cart.svg"
+                        alt="Корзина"
+                        class="icon cart-icon"
+                    >
+
+                    <span class="cart-count">
+                        0
+                    </span>
+
+                </button>
+
+
+                <!-- ================================================= -->
+                <!-- CART WINDOW -->
+                <!-- ================================================= -->
+
+                <div
+                    class="cart-window"
+                    aria-label="Корзина"
+                >
+
+
+                    <!-- CART HEADER -->
+                    <div class="cart-header">
+
+                        <h3 id="lang-cart-title">
+                            Корзина
+                        </h3>
+
+                        <button
+                            type="button"
+                            class="cart-close"
+                            aria-label="Закрыть корзину"
+                        >
+                            ×
+                        </button>
+
+                    </div>
+
+
+                    <!-- ================================================= -->
+                    <!-- CART ITEMS -->
+                    <!-- ================================================= -->
+
+                    <div class="cart-items">
+
+                        <p id="lang-cart-empty">
+                            Корзина пустая
+                        </p>
+
+                    </div>
+
+
+                    <!-- ================================================= -->
+                    <!-- CART SUMMARY -->
+                    <!-- ================================================= -->
+
+                    <div class="cart-summary">
+
+
+                        <!-- SUBTOTAL -->
+                        <div class="cart-summary-row">
+
+                            <span id="lang-cart-subtotal-label">
+                                Товары
+                            </span>
+
+                            <span class="cart-subtotal">
+                                0.00 €
+                            </span>
+
+                        </div>
+
+
+                        <!-- SHIPPING -->
+                        <div class="cart-summary-row">
+
+                            <span id="lang-cart-shipping-label">
+                                Доставка
+                            </span>
+
+                            <span class="cart-shipping">
+                                0.00 €
+                            </span>
+
+                        </div>
+
+
+                        <!-- TOTAL -->
+                        <div
+                            class="cart-summary-row cart-summary-total"
+                        >
+
+                            <span id="lang-cart-total-label">
+                                Итого
+                            </span>
+
+                            <strong class="cart-total">
+                                0.00 €
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- ================================================= -->
+                    <!-- CHECKOUT -->
+                    <!-- ================================================= -->
+
+                    <button
+                        type="button"
+                        class="checkout-btn"
+                        id="lang-cart-checkout"
+                    >
+                        Перейти к оплате
+                    </button>
+
+
+                    <!-- ================================================= -->
+                    <!-- CLEAR CART -->
+                    <!-- ================================================= -->
+
+                    <button
+                        type="button"
+                        class="clear-cart"
+                        id="lang-cart-clear"
+                    >
+                        Очистить корзину
+                    </button>
+
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</header>
+
+
+<!-- ============================================================= -->
+<!-- HERO -->
+<!-- ============================================================= -->
+
+<section class="hero" id="top">
+
+    <div class="hero-veil"></div>
+
+    <div class="hero-content">
+
+        <p
+            class="eyebrow"
+            id="lang-hero-eyebrow"
+        >
+            Ателье принта — основано в Эстонии
+        </p>
+
+
+        <h1 class="main-title">
+            Ink<em>Theory</em>
+        </h1>
+
+
+        <svg
+            class="ink-stroke"
+            viewBox="0 0 460 30"
+            preserveAspectRatio="none"
+            aria-hidden="true"
+        >
+            <path d="M4 20 C 90 4, 180 30, 260 14 S 400 6, 456 18"/>
+        </svg>
+
+
+        <p
+            class="main-subtitle"
+            id="lang-hero-subtitle"
+        >
+            Чернила, которые говорят<br>
+            за тебя.
+        </p>
+
+
+        <a
+            href="#catalog"
+            class="cta-button"
+        >
+
+            <span id="lang-hero-btn">
+                Перейти в каталог
+            </span>
+
+            <span class="arrow">
+                &rarr;
+            </span>
+
+        </a>
+
+    </div>
+
+
+    <div
+        class="scroll-cue"
+        aria-hidden="true"
+    >
+
+        <span></span>
+
+        <p id="lang-scroll-cue">
+            Листайте
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- ============================================================= -->
+<!-- CATALOG -->
+<!-- ============================================================= -->
+
+<section
+    class="catalog"
+    id="catalog"
+>
+
+    <div class="section-head reveal">
+
+        <span
+            class="eyebrow"
+            id="collections"
+        >
+            Коллекция
+        </span>
+
+
+        <h2
+            class="catalog-title"
+            id="lang-catalog-title"
+        >
+            Каталог
+        </h2>
+
+
+        <svg
+            class="ink-divider"
+            viewBox="0 0 300 16"
+            preserveAspectRatio="none"
+            aria-hidden="true"
+        >
+            <path d="M2 8 C 60 -2, 120 18, 180 8 S 260 -2, 298 8"/>
+        </svg>
+
+    </div>
+
+
+    <div class="products-grid">
+
+
+        <!-- ===================================================== -->
+        <!-- SIGNAL LOST -->
+        <!-- ===================================================== -->
+
+        <div
+            class="product-card reveal"
+            data-product-id="signal-lost"
+        >
+
+            <div class="product-image-wrap">
+
+                <img
+                    src="images/signal-front.jpg"
+                    alt="Signal Lost"
+                    class="product-image"
+
+                    data-black="images/signal-front.jpg"
+                    data-white="images/TODO-new-3-white.png"
+
+                    data-images-black="images/signal-front.jpg, images/signal-back.jpg, images/signalL-front.jpg, images/signalL-back.jpg"
+
+                    data-images-white=""
+                >
+
+                <button
+                    type="button"
+                    class="carousel-btn carousel-prev"
+                    aria-label="Предыдущее фото"
+                >
+                    ‹
+                </button>
+
+                <button
+                    type="button"
+                    class="carousel-btn carousel-next"
+                    aria-label="Следующее фото"
+                >
+                    ›
+                </button>
+
+                <div class="carousel-dots"></div>
+
+            </div>
+
+
+            <div class="product-body">
+
+                <h3 class="lang-p-title">
+                    Signal Lost
+                </h3>
+
+                <p class="product-price">
+                    18 €
+                </p>
+
+
+                <div class="options">
+
+                    <div class="option-row">
+
+                        <label class="lang-label-color">
+                            Цвет
+                        </label>
+
+                        <select class="color-select">
+
+                            <option
+                                value="black"
+                                class="lang-color-black"
+                            >
+                                Черный
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="option-row">
+
+                        <label class="lang-label-size">
+                            Размер
+                        </label>
+
+                        <select>
+
+                            <option>S</option>
+                            <option>M</option>
+                            <option>L</option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="option-row">
+
+                        <label class="lang-label-fit">
+                            Посадка
+                        </label>
+
+                        <select class="fit-select">
+
+                            <option
+                                value="slim"
+                                class="lang-fit-slim"
+                            >
+                                Slim fit
+                            </option>
+
+                            <option
+                                value="regular"
+                                class="lang-fit-regular"
+                            >
+                                Regular
+                            </option>
+
+                            <option
+                                value="relaxed"
+                                class="lang-fit-relaxed"
+                            >
+                                Relaxed
+                            </option>
+
+                            <option
+                                value="loose"
+                                class="lang-fit-loose"
+                            >
+                                Loose
+                            </option>
+
+                            <option
+                                value="oversize"
+                                class="lang-fit-oversize"
+                            >
+                                Oversize
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                <div class="product-buttons">
+
+                    <button
+                        class="buy-btn lang-btn-buy"
+                    >
+                        Купить сейчас
+                    </button>
+
+                    <button
+                        type="button"
+                        class="cart-btn lang-btn-add"
+                    >
+                        Добавить в корзину
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- ===================================================== -->
+        <!-- NO KINGS -->
+        <!-- ===================================================== -->
+
+        <div
+            class="product-card reveal"
+            data-product-id="no-kings"
+        >
+
+            <div class="product-image-wrap">
+
+                <img
+                    src="images/No Kings.png"
+                    alt="No Kings"
+                    class="product-image"
+
+                    data-black=""
+
+                    data-white="images/No Kings.png, images/No Kings-back.png"
+
+                    data-images-black=""
+
+                    data-images-white="images/No Kings.png, img/No KIngs-back.png, images/NoKings-front.png, images/NoKings-back.png"
+                >
+
+                <button
+                    type="button"
+                    class="carousel-btn carousel-prev"
+                    aria-label="Предыдущее фото"
+                >
+                    ‹
+                </button>
+
+                <button
+                    type="button"
+                    class="carousel-btn carousel-next"
+                    aria-label="Следующее фото"
+                >
+                    ›
+                </button>
+
+                <div class="carousel-dots"></div>
+
+            </div>
+
+
+            <div class="product-body">
+
+                <h3 class="lang-p-title">
+                    No Kings
+                </h3>
+
+                <p class="product-price">
+                    18 €
+                </p>
+
+
+                <div class="options">
+
+                    <div class="option-row">
+
+                        <label class="lang-label-color">
+                            Цвет
+                        </label>
+
+                        <select class="color-select">
+
+                            <option
+                                value="white"
+                                class="lang-color-white"
+                            >
+                                Белый
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="option-row">
+
+                        <label class="lang-label-size">
+                            Размер
+                        </label>
+
+                        <select>
+
+                            <option>S</option>
+                            <option>M</option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="option-row">
+
+                        <label class="lang-label-fit">
+                            Посадка
+                        </label>
+
+                        <select class="fit-select">
+
+                            <option value="slim">Slim fit</option>
+                            <option value="regular">Regular</option>
+                            <option value="relaxed">Relaxed</option>
+                            <option value="loose">Loose</option>
+                            <option value="oversize">Oversize</option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                <div class="product-buttons">
+
+                    <button
+                        class="buy-btn lang-btn-buy"
+                    >
+                        Купить сейчас
+                    </button>
+
+                    <button
+                        type="button"
+                        class="cart-btn lang-btn-add"
+                    >
+                        Добавить в корзину
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ===================================================== -->
+        <!-- CONNECTION -->
+        <!-- ===================================================== -->
+
+        <div
+            class="product-card reveal"
+            data-product-id="connection"
+        >
+
+            <div class="product-image-wrap">
+
+                <img
+                    src="images/ConnectionB.jpg"
+                    alt="Connection"
+                    class="product-image"
+
+                    data-black="images/ConnectionB.jpg"
+                    data-white="images/ConnectionW.jpg"
+
+                    data-images-black="images/ConnectionB.jpg, images/Connection-frontB.png"
+
+                    data-images-white="images/ConnectionW.jpg, images/Connection-frontW.png"
+                >
+
+                <button
+                    type="button"
+                    class="carousel-btn carousel-prev"
+                    aria-label="Предыдущее фото"
+                >
+                    ‹
+                </button>
+
+                <button
+                    type="button"
+                    class="carousel-btn carousel-next"
+                    aria-label="Следующее фото"
+                >
+                    ›
+                </button>
+
+                <div class="carousel-dots"></div>
+
+            </div>
+
+
+            <div class="product-body">
+
+                <h3 class="lang-p-title">
+                    Connection
+                </h3>
+
+                <p class="product-price">
+                    16 €
+                </p>
+
+
+                <div class="options">
+
+                    <div class="option-row">
+
+                        <label class="lang-label-color">
+                            Цвет
+                        </label>
+
+                        <select class="color-select">
+
+                            <option
+                                value="black"
+                                class="lang-color-black"
+                            >
+                                Черный
+                            </option>
+
+                            <option
+                                value="white"
+                                class="lang-color-white"
+                            >
+                                Белый
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="option-row">
+
+                        <label class="lang-label-size">
+                            Размер
+                        </label>
+
+                        <select>
+
+                            <option>S</option>
+                            <option>M</option>
+                            <option>L</option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="option-row">
+
+                        <label class="lang-label-fit">
+                            Посадка
+                        </label>
+
+                        <select class="fit-select">
+
+                            <option value="slim">Slim fit</option>
+                            <option value="regular">Regular</option>
+                            <option value="relaxed">Relaxed</option>
+                            <option value="loose">Loose</option>
+                            <option value="oversize">Oversize</option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                <div class="product-buttons">
+
+                    <button
+                        class="buy-btn lang-btn-buy"
+                    >
+                        Купить сейчас
+                    </button>
+
+                    <button
+                        type="button"
+                        class="cart-btn lang-btn-add"
+                    >
+                        Добавить в корзину
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ===================================================== -->
+        <!-- TIME TO LIVE -->
+        <!-- ===================================================== -->
+
+        <div
+            class="product-card reveal"
+            data-product-id="time-to-live"
+        >
+
+            <div class="product-image-wrap">
+
+                <img
+                    src="images/Time to liveB.png"
+                    alt="Time to live"
+                    class="product-image"
+
+                    data-black="images/time-to-liveB.png"
+                    data-white="images/Time-to-liveW.png"
+
+                    data-images-black="img/liveB.jpg, img/liveBF.jpg"
+
+                    data-images-white="img/liveW.jpg, img/liveWF.jpg"
+                >
+
+                <button
+                    type="button"
+                    class="carousel-btn carousel-prev"
+                    aria-label="Предыдущее фото"
+                >
+                    ‹
+                </button>
+
+                <button
+                    type="button"
+                    class="carousel-btn carousel-next"
+                    aria-label="Следующее фото"
+                >
+                    ›
+                </button>
+
+                <div class="carousel-dots"></div>
+
+            </div>
+
+
+            <div class="product-body">
+
+                <h3 class="lang-p-title">
+                    Time to live
+                </h3>
+
+                <p class="product-price">
+                    16 €
+                </p>
+
+
+                <div class="options">
+
+                    <div class="option-row">
+
+                        <label class="lang-label-color">
+                            Цвет
+                        </label>
+
+                        <select class="color-select">
+
+                            <option value="black">
+                                Черный
+                            </option>
+
+                            <option value="white">
+                                Белый
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="option-row">
+
+                        <label class="lang-label-size">
+                            Размер
+                        </label>
+
+                        <select>
+
+                            <option>S</option>
+                            <option>M</option>
+                            <option>L</option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="option-row">
+
+                        <label class="lang-label-fit">
+                            Посадка
+                        </label>
+
+                        <select class="fit-select">
+
+                            <option value="slim">Slim fit</option>
+                            <option value="regular">Regular</option>
+                            <option value="relaxed">Relaxed</option>
+                            <option value="loose">Loose</option>
+                            <option value="oversize">Oversize</option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                <div class="product-buttons">
+
+                    <button
+                        class="buy-btn lang-btn-buy"
+                    >
+                        Купить сейчас
+                    </button>
+
+                    <button
+                        type="button"
+                        class="cart-btn lang-btn-add"
+                    >
+                        Добавить в корзину
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ===================================================== -->
+        <!-- NEVER GIVE UP -->
+        <!-- ===================================================== -->
+
+        <div
+            class="product-card reveal"
+            data-product-id="never"
+        >
+
+            <div class="product-image-wrap">
+
+                <img
+                    src="images/Never Give Up.png"
+                    alt="Never Give Up"
+                    class="product-image"
+
+                    data-black="images/Never Give Up.png"
+                    data-white=""
+
+                    data-images-black="images/Never Give Up.png, img/never-front.jpg"
+                    data-images-white=""
+                >
+
+                <button
+                    type="button"
+                    class="carousel-btn carousel-prev"
+                    aria-label="Предыдущее фото"
+                >
+                    ‹
+                </button>
+
+                <button
+                    type="button"
+                    class="carousel-btn carousel-next"
+                    aria-label="Следующее фото"
+                >
+                    ›
+                </button>
+
+                <div class="carousel-dots"></div>
+
+            </div>
+
+
+            <div class="product-body">
+
+                <h3 class="lang-p-title">
+                    Never Give Up
+                </h3>
+
+                <p class="product-price">
+                    15 €
+                </p>
+
+
+                <div class="options">
+
+                    <div class="option-row">
+
+                        <label class="lang-label-color">
+                            Цвет
+                        </label>
+
+                        <select class="color-select">
+
+                            <option value="black">
+                                Черный
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="option-row">
+
+                        <label class="lang-label-size">
+                            Размер
+                        </label>
+
+                        <select>
+
+                            <option>S</option>
+                            <option>M</option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="option-row">
+
+                        <label class="lang-label-fit">
+                            Посадка
+                        </label>
+
+                        <select class="fit-select">
+
+                            <option value="slim">Slim fit</option>
+                            <option value="regular">Regular</option>
+                            <option value="relaxed">Relaxed</option>
+                            <option value="loose">Loose</option>
+                            <option value="oversize">Oversize</option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                <div class="product-buttons">
+
+                    <button
+                        class="buy-btn lang-btn-buy"
+                        data-paypal-white=""
+                    >
+                        Купить сейчас
+                    </button>
+
+                    <button
+                        type="button"
+                        class="cart-btn lang-btn-add"
+                    >
+                        Добавить в корзину
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ===================================================== -->
+        <!-- CHAOS -->
+        <!-- ===================================================== -->
+
+        <div
+            class="product-card reveal"
+            data-product-id="chaos"
+        >
+
+            <div class="product-image-wrap">
+
+                <img
+                    src="images/Chaos (2).png"
+                    alt="Chaos"
+                    class="product-image"
+
+                    data-black=""
+                    data-white="images/Chaos (2).png,"
+
+                    data-images-black=""
+                    data-images-white="images/Chaos (2).png, images/chaos-back.png"
+                >
+
+                <button
+                    type="button"
+                    class="carousel-btn carousel-prev"
+                    aria-label="Предыдущее фото"
+                >
+                    ‹
+                </button>
+
+                <button
+                    type="button"
+                    class="carousel-btn carousel-next"
+                    aria-label="Следующее фото"
+                >
+                    ›
+                </button>
+
+                <div class="carousel-dots"></div>
+
+            </div>
+
+
+            <div class="product-body">
+
+                <h3 class="lang-p-title">
+                    Chaos
+                </h3>
+
+                <p class="product-price">
+                    15 €
+                </p>
+
+
+                <div class="options">
+
+                    <div class="option-row">
+
+                        <label class="lang-label-color">
+                            Цвет
+                        </label>
+
+                        <select class="color-select">
+
+                            <option
+                                value="white"
+                                class="lang-color-white"
+                            >
+                                Белый
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="option-row">
+
+                        <label class="lang-label-size">
+                            Размер
+                        </label>
+
+                        <select>
+
+                            <option>S</option>
+                            <option>M</option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="option-row">
+
+                        <label class="lang-label-fit">
+                            Посадка
+                        </label>
+
+                        <select class="fit-select">
+
+                            <option value="slim">Slim fit</option>
+                            <option value="regular">Regular</option>
+                            <option value="relaxed">Relaxed</option>
+                            <option value="loose">Loose</option>
+                            <option value="oversize">Oversize</option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                <div class="product-buttons">
+
+                    <button
+                        class="buy-btn lang-btn-buy"
+                        data-paypal-black=""
+                    >
+                        Купить сейчас
+                    </button>
+
+                    <button
+                        type="button"
+                        class="cart-btn lang-btn-add"
+                    >
+                        Добавить в корзину
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ===================================================== -->
+        <!-- SUMMER VIBES -->
+        <!-- ===================================================== -->
+
+        <div
+            class="product-card reveal"
+            data-product-id="summer"
+        >
+
+            <div class="product-image-wrap">
+
+                <img
+                    src="images/Summer Vibes Black.png"
+                    alt="Summer Vibes"
+                    class="product-image"
+
+                    data-black="images/Summer Vibes Black.png"
+                    data-white="images/Summer Vibes White.png"
+
+                    data-images-black="images/Summer Vibes Black.png, images/summer-fitB.png"
+
+                    data-images-white="images/Summer Vibes White.png, images/summer-fitW.png"
+                >
+
+                <button
+                    type="button"
+                    class="carousel-btn carousel-prev"
+                    aria-label="Предыдущее фото"
+                >
+                    ‹
+                </button>
+
+                <button
+                    type="button"
+                    class="carousel-btn carousel-next"
+                    aria-label="Следующее фото"
+                >
+                    ›
+                </button>
+
+                <div class="carousel-dots"></div>
+
+            </div>
+
+
+            <div class="product-body">
+
+                <h3 class="lang-p-title">
+                    Summer Vibes
+                </h3>
+
+                <p class="product-price">
+                    15 €
+                </p>
+
+
+                <div class="options">
+
+                    <div class="option-row">
+
+                        <label class="lang-label-color">
+                            Цвет
+                        </label>
+
+                        <select class="color-select">
+
+                            <option value="black">
+                                Черный
+                            </option>
+
+                            <option value="white">
+                                Белый
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="option-row">
+
+                        <label class="lang-label-size">
+                            Размер
+                        </label>
+
+                        <select>
+
+                            <option>S</option>
+                            <option>M</option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="option-row">
+
+                        <label class="lang-label-fit">
+                            Посадка
+                        </label>
+
+                        <select class="fit-select">
+
+                            <option value="slim">Slim fit</option>
+                            <option value="regular">Regular</option>
+                            <option value="relaxed">Relaxed</option>
+                            <option value="loose">Loose</option>
+                            <option value="oversize">Oversize</option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                <div class="product-buttons">
+
+                    <button
+                        class="buy-btn lang-btn-buy"
+                    >
+                        Купить сейчас
+                    </button>
+
+                    <button
+                        type="button"
+                        class="cart-btn lang-btn-add"
+                    >
+                        Добавить в корзину
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ===================================================== -->
+        <!-- TOKYO DRIVE -->
+        <!-- ===================================================== -->
+
+        <div
+            class="product-card reveal"
+            data-product-id="drive"
+        >
+
+            <div class="product-image-wrap">
+
+                <img
+                    src="images/Tokyo Drive Black.png"
+                    alt="Tokyo Drive"
+                    class="product-image"
+
+                    data-black="images/Tokyo Drive Black.png"
+                    data-white="images/Tokyo Drive White.png"
+
+                    data-images-black="images/Tokyo Drive Black.png, images/tokyoB-front.png"
+
+                    data-images-white="images/Tokyo Drive White.png, images/tokyoW-front.png"
+                >
+
+                <button
+                    type="button"
+                    class="carousel-btn carousel-prev"
+                    aria-label="Предыдущее фото"
+                >
+                    ‹
+                </button>
+
+                <button
+                    type="button"
+                    class="carousel-btn carousel-next"
+                    aria-label="Следующее фото"
+                >
+                    ›
+                </button>
+
+                <div class="carousel-dots"></div>
+
+            </div>
+
+
+            <div class="product-body">
+
+                <h3 class="lang-p-title">
+                    Tokyo Drive
+                </h3>
+
+                <p class="product-price">
+                    15 €
+                </p>
+
+
+                <div class="options">
+
+                    <div class="option-row">
+
+                        <label class="lang-label-color">
+                            Цвет
+                        </label>
+
+                        <select class="color-select">
+
+                            <option value="black">
+                                Черный
+                            </option>
+
+                            <option value="white">
+                                Белый
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="option-row">
+
+                        <label class="lang-label-size">
+                            Размер
+                        </label>
+
+                        <select>
+                            <option>S</option>
+                            <option>M</option>
+                        </select>
+                    </div>
+
+
+                    <div class="option-row">
+
+                        <label class="lang-label-fit">
+                            Посадка
+                        </label>
+
+                        <select class="fit-select">
+
+                            <option value="slim">Slim fit</option>
+                            <option value="regular">Regular</option>
+                            <option value="relaxed">Relaxed</option>
+                            <option value="loose">Loose</option>
+                            <option value="oversize">Oversize</option>
+
+                        </select>
+                    </div>
+                </div>
+
+
+                <div class="product-buttons">
+
+                    <button
+                        class="buy-btn lang-btn-buy"
+                    >
+                        Купить сейчас
+                    </button>
+
+                    <button
+                        type="button"
+                        class="cart-btn lang-btn-add"
+                    >
+                        Добавить в корзину
+                    </button>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- ===================================================== -->
+        <!-- SHADOW RONIN -->
+        <!-- ===================================================== -->
+
+        <div
+            class="product-card reveal"
+            data-product-id="samurai"
+        >
+
+            <div class="product-image-wrap">
+
+                <img
+                    src="images/Shadow ronin Black.png"
+                    alt="Shadow Ronin"
+                    class="product-image"
+
+                    data-black="images/Shadow ronin Black.png"
+                    data-white=""
+
+                    data-images-black="images/Shadow ronin Black.png, img/Shadow Ronin-front.png"
+
+                    data-images-white=""
+                >
+
+                <button
+                    type="button"
+                    class="carousel-btn carousel-prev"
+                    aria-label="Предыдущее фото"
+                >
+                    ‹
+                </button>
+
+                <button
+                    type="button"
+                    class="carousel-btn carousel-next"
+                    aria-label="Следующее фото"
+                >
+                    ›
+                </button>
+                <div class="carousel-dots"></div>
+            </div>
+
+            <div class="product-body">
+
+                <h3 class="lang-p-title">
+                    Shadow Ronin
+                </h3>
+
+                <p class="product-price">
+                    15 €
+                </p>
+
+
+                <div class="options">
+                    <div class="option-row">
+                        <label class="lang-label-color">
+                            Цвет
+                        </label>
+                        <select class="color-select">
+
+                            <option
+                                value="black"
+                                class="lang-color-black"
+                            >
+                                Черный
+                            </option>
+                        </select>
+                    </div>
+
+
+                    <div class="option-row">
+
+                        <label class="lang-label-size">
+                            Размер
+                        </label>
+
+                        <select>
+                            <option>S</option>
+                            <option>M</option>
+                        </select>
+                    </div>
+
+                    <div class="option-row">
+
+                        <label class="lang-label-fit">
+                            Посадка
+                        </label>
+
+                        <select class="fit-select">
+
+                            <option value="slim">Slim fit</option>
+                            <option value="regular">Regular</option>
+                            <option value="relaxed">Relaxed</option>
+                            <option value="loose">Loose</option>
+                            <option value="oversize">Oversize</option>
+
+                        </select>
+                    </div>
+                </div>
+
+
+                <div class="product-buttons">
+
+                    <button
+                        class="buy-btn lang-btn-buy"
+                        data-paypal-white=""
+                    >
+                        Купить сейчас
+                    </button>
+
+                    <button
+                        type="button"
+                        class="cart-btn lang-btn-add"
+                    >
+                        Добавить в корзину
+                    </button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+
+<!-- ============================================================= -->
+<!-- FOOTER -->
+<!-- ============================================================= -->
+
+ <footer class="footer" id="footer">
+        <div class="footer-content">
+
+            <div class="footer-about reveal">
+                <div class="logo footer-logo">Ink<em>Theory</em></div>
+                <p id="lang-footer-about">
+                   Мы используем футболки H&M из 100% хлопка, и качетвенной плотной ткани
+                   обеспечивающей комфорт и долговечность. 
+                   Печать наносится с помощью высококачественной технологии DTF (Direct to Film), которая
+                   позволяет получить яркое и детализированное изображение с высокой стойкостью. 
+                </p>
+            </div>
+
+            <div class="footer-contacts reveal">
+                <h3 id="lang-footer-contacts-title">Контакты и Социальные сети</h3>
+                <p class="telegram-line">Telegram: @inkThe0ry</p>
+
+                <div class="social-icons">
+                    <p id="lang-footer-socials">Social Networks</p>
+
+                    <a href="https://www.facebook.com/profile.php?id=61590591730196&locale=ru_RU" target="_blank" rel="noopener">
+                        <img src="images/facebook.png" alt="Facebook">
+                    </a>
+
+                    <a href="https://www.tiktok.com/@inktheory18?is_from_webapp=1&sender_device=pc" target="_blank" rel="noopener">
+                        <img src="images/tiktok.png" alt="TikTok">
+                    </a>
+
+                    <a href="https://www.instagram.com/inktheory.ee/" target="_blank" rel="noopener">
+                        <img src="images/instagramm.png" alt="Instagram">
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+            <p>© 2026 InkTheory.</p>
+        </div>
+    </footer>
+
+</body></html>
