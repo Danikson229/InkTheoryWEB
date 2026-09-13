@@ -2018,7 +2018,7 @@ a {
     .catalog-title { font-size: 34px; }
 
     .products-grid {
-        grid-template-columns: 1fr !important;
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
         gap: 20px;
     }
 
@@ -2143,7 +2143,6 @@ a {
 .leaflet-container a.leaflet-popup-close-button {
     color: #948c7f;
 }
-
 /* ===== СТРЕЛКИ КАРУСЕЛИ НА ТЕЛЕФОНАХ ===== */
 
 @media (max-width: 768px) {
