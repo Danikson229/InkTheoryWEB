@@ -2029,78 +2029,6 @@ a {
     .social-icons { justify-content: center; }
 }
 
-
-
-
-
-
-
-/* =========================================================
-   MOBILE SEARCH
-   ========================================================= */
-
-@media (max-width: 700px) {
-
-    .search-wrap {
-        min-width: 44px;
-        min-height: 42px;
-        padding: 8px 12px;
-        cursor: pointer;
-        transition:
-            width .3s var(--ease),
-            border-color .3s var(--ease);
-    }
-
-    .search-icon {
-        width: 18px;
-        height: 18px;
-        flex: 0 0 auto;
-        cursor: pointer;
-        position: relative;
-        z-index: 5;
-    }
-
-    #search-input {
-        width: 0;
-        min-width: 0;
-        padding: 0;
-        opacity: 0;
-        pointer-events: none;
-        transition:
-            width .3s var(--ease),
-            opacity .2s ease;
-    }
-
-    .search-wrap.search-open {
-        width: min(280px, 80vw);
-    }
-
-    .search-wrap.search-open #search-input,
-    #search-input:focus {
-        width: 100%;
-        opacity: 1;
-        pointer-events: auto;
-    }
-
-    .search-results {
-        top: calc(100% + 10px);
-        left: 50%;
-        width: min(280px, 85vw);
-        transform: translateX(-50%) translateY(-6px);
-    }
-
-    .search-results.active {
-        transform: translateX(-50%) translateY(0);
-    }
-}
-
-
-
-
-
-
-
-
 @media (max-width: 480px) {
     .main-title { font-size: 40px; }
     .products-grid { grid-template-columns: 1fr; }
@@ -2223,12 +2151,3 @@ a {
         display: none !important;
     }
 }
-
-
-
-
-
-
-
-
-

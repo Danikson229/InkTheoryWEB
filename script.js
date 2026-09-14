@@ -1262,40 +1262,6 @@ const searchResults =
         "search-results"
     );
 
-
-
-    
-// =========================================================================
-// ПОИСК — ОТКРЫТИЕ ПО НАЖАТИЮ НА ЛУПУ
-// =========================================================================
-
-const searchIcon = document.querySelector(".search-icon");
-const searchWrap = document.querySelector(".search-wrap");
-
-if (searchIcon && searchInput) {
-
-    searchIcon.addEventListener("click", function (e) {
-        e.preventDefault();
-        e.stopPropagation();
-
-        searchInput.focus();
-
-        // На мобильном открываем клавиатуру и показываем поле
-        searchWrap?.classList.add("search-open");
-    });
-
-    searchIcon.addEventListener("touchend", function (e) {
-        e.preventDefault();
-        e.stopPropagation();
-
-        searchInput.focus();
-        searchWrap?.classList.add("search-open");
-    }, { passive: false });
-}
-
-
-
- 
 function closeSearchResults() {
  
     if (searchResults) {
