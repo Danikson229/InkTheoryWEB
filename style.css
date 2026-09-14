@@ -164,6 +164,7 @@ a {
 
 .search-wrap {
     position: relative;
+    z-index: 10;
     display: flex;
     align-items: center;
     gap: 8px;
@@ -184,7 +185,7 @@ a {
     border-radius: 14px;
     padding: 8px;
     box-shadow: var(--shadow-soft);
-    z-index: 1001;
+    z-index: 100002;
     opacity: 0;
     transform: translateY(-6px);
     transition: opacity 0.25s var(--ease), transform 0.25s var(--ease);
@@ -1954,6 +1955,24 @@ a {
 @media (max-width: 768px) {
     .main-header { padding: 14px 3vw 0; }
 
+    /* SEARCH FIX — поверх корзины и без обрезания на мобильных */
+    .header-icons {
+        position: relative;
+        z-index: 100001;
+    }
+
+    .search-wrap {
+        position: relative;
+        z-index: 100002;
+        isolation: isolate;
+    }
+
+    .search-results {
+        z-index: 100003 !important;
+        max-width: calc(100vw - 24px);
+        overflow: hidden;
+    }
+
     .nav-inner {
         height: auto;
         flex-direction: column;
@@ -1977,8 +1996,21 @@ a {
         gap: 14px;
     }
 
-    #search-input { width: 90px; }
-    #search-input:focus { width: 120px; }
+    #search-input {
+        width: 90px;
+        min-width: 0;
+        -webkit-appearance: none;
+        appearance: none;
+    }
+
+    #search-input:focus {
+        width: 120px;
+    }
+
+    #search-input,
+    .search-wrap {
+        -webkit-tap-highlight-color: transparent;
+    }
 
     .search-results {
         left: 50%;
@@ -2145,8 +2177,88 @@ a {
 }
 /* ===== СТРЕЛКИ КАРУСЕЛИ НА ТЕЛЕФОНАХ ===== */
 
+
+
+
+
+/* =========================================================================
+   MOBILE SEARCH FIX
+   ========================================================================= */
+
 @media (max-width: 768px) {
-    .carousel-btn {
-        display: none !important;
+
+    .search-wrap {
+        width: 42px !important;
+        min-width: 42px !important;
+        height: 42px;
+        padding: 0 !important;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        overflow: hidden;
+        cursor: pointer;
+
+        transition:
+            width .3s var(--ease),
+            min-width .3s var(--ease);
+    }
+
+    .search-wrap .search-icon {
+        flex: 0 0 auto;
+        width: 18px !important;
+        height: 18px !important;
+        cursor: pointer;
+    }
+
+    .search-wrap #search-input {
+        width: 0 !important;
+        min-width: 0 !important;
+
+        padding: 0 !important;
+        margin: 0 !important;
+
+        opacity: 0;
+        pointer-events: none;
+
+        transition:
+            width .3s var(--ease),
+            opacity .2s ease;
+    }
+
+    /* ПОИСК ОТКРЫТ */
+    .search-wrap.mobile-open {
+        width: 220px !important;
+        min-width: 220px !important;
+
+        justify-content: flex-start;
+        padding: 8px 14px !important;
+    }
+
+    .search-wrap.mobile-open #search-input {
+        width: 100% !important;
+
+        opacity: 1;
+        pointer-events: auto;
+
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+
+    .search-wrap.mobile-open .search-icon {
+        margin-right: 8px;
+    }
+
+    .search-results {
+        width: 220px !important;
+        max-width: calc(100vw - 30px) !important;
+
+        left: 50% !important;
+        transform: translateX(-50%) translateY(-6px);
+    }
+
+    .search-results.active {
+        transform: translateX(-50%) translateY(0);
     }
 }

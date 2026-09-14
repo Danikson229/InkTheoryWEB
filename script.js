@@ -926,15 +926,15 @@ if (closeCartButton) {
  
 document.addEventListener("click", function (event) {
     if (!cartWindow || !cartWindow.classList.contains("active")) return;
-    
-    const wrapper = document.querySelector(".cart-wrapper");
-    const isClickInsideWrapper = wrapper && wrapper.contains(event.target);
+
+    const isClickInsideWindow = cartWindow.contains(event.target);
     const isClickOnTrigger = cartTrigger && cartTrigger.contains(event.target);
- 
-    if (!isClickInsideWrapper && !isClickOnTrigger) {
+
+    if (!isClickInsideWindow && !isClickOnTrigger) {
         closeCart();
     }
 });
+
  
 document.addEventListener("keydown", function (event) {
     if (event.key === "Escape" && cartWindow?.classList.contains("active")) {
@@ -1068,7 +1068,7 @@ function initCardCarousel(wrap) {
  
     let index = 0;
  
-        // =========================================================
+    // =========================================================
     // СВАЙП ПАЛЬЦЕМ НА ТЕЛЕФОНЕ
     // =========================================================
  
@@ -1458,6 +1458,56 @@ if (searchInput) {
     );
 
 }
+
+
+
+
+// =========================================================================
+// МОБИЛЬНОЕ ОТКРЫТИЕ ПОИСКА
+// =========================================================================
+
+const searchWrap = document.querySelector(".search-wrap");
+const searchIcon = document.querySelector(".search-icon");
+
+if (searchWrap && searchInput) {
+
+    // Нажатие на область поиска
+    searchWrap.addEventListener("click", function(e) {
+
+        // На телефоне
+        if (window.innerWidth <= 768) {
+
+            // Если нажали не на само поле
+            if (e.target !== searchInput) {
+                e.preventDefault();
+            }
+
+            searchWrap.classList.add("mobile-open");
+
+            setTimeout(() => {
+                searchInput.focus();
+            }, 50);
+        }
+    });
+
+    // Нажали вне поиска
+    document.addEventListener("click", function(e) {
+
+        if (
+            window.innerWidth <= 768 &&
+            !e.target.closest(".search-wrap")
+        ) {
+            searchWrap.classList.remove("mobile-open");
+
+            if (!searchInput.value.trim()) {
+                searchInput.blur();
+            }
+        }
+    });
+}
+
+
+
  
 // =========================================================================
 // СЛОВАРЬ НАЗВАНИЙ
@@ -2610,3 +2660,6 @@ if (
  
 }
  
+
+
+
