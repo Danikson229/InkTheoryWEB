@@ -1256,11 +1256,45 @@ const searchInput =
     document.getElementById(
         "search-input"
     );
- 
+
 const searchResults =
     document.getElementById(
         "search-results"
     );
+
+
+
+    
+// =========================================================================
+// ПОИСК — ОТКРЫТИЕ ПО НАЖАТИЮ НА ЛУПУ
+// =========================================================================
+
+const searchIcon = document.querySelector(".search-icon");
+const searchWrap = document.querySelector(".search-wrap");
+
+if (searchIcon && searchInput) {
+
+    searchIcon.addEventListener("click", function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        searchInput.focus();
+
+        // На мобильном открываем клавиатуру и показываем поле
+        searchWrap?.classList.add("search-open");
+    });
+
+    searchIcon.addEventListener("touchend", function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        searchInput.focus();
+        searchWrap?.classList.add("search-open");
+    }, { passive: false });
+}
+
+
+
  
 function closeSearchResults() {
  
@@ -1459,56 +1493,6 @@ if (searchInput) {
 
 }
 
-
-
-
-// =========================================================================
-// МОБИЛЬНОЕ ОТКРЫТИЕ ПОИСКА
-// =========================================================================
-
-const searchWrap = document.querySelector(".search-wrap");
-const searchIcon = document.querySelector(".search-icon");
-
-if (searchWrap && searchInput) {
-
-    // Нажатие на область поиска
-    searchWrap.addEventListener("click", function(e) {
-
-        // На телефоне
-        if (window.innerWidth <= 768) {
-
-            // Если нажали не на само поле
-            if (e.target !== searchInput) {
-                e.preventDefault();
-            }
-
-            searchWrap.classList.add("mobile-open");
-
-            setTimeout(() => {
-                searchInput.focus();
-            }, 50);
-        }
-    });
-
-    // Нажали вне поиска
-    document.addEventListener("click", function(e) {
-
-        if (
-            window.innerWidth <= 768 &&
-            !e.target.closest(".search-wrap")
-        ) {
-            searchWrap.classList.remove("mobile-open");
-
-            if (!searchInput.value.trim()) {
-                searchInput.blur();
-            }
-        }
-    });
-}
-
-
-
- 
 // =========================================================================
 // СЛОВАРЬ НАЗВАНИЙ
 //
@@ -2660,6 +2644,3 @@ if (
  
 }
  
-
-
-
