@@ -1249,212 +1249,205 @@ colorSelects.forEach(select => {
 // ЖИВОЙ ПОИСК
 // =========================================================================
  
-const searchInput =
-    document.getElementById(
-        "search-input"
-    );
- 
-const searchResults =
-    document.getElementById(
-        "search-results"
-    );
- 
+const searchInput = document.getElementById("search-input");
+const searchResults = document.getElementById("search-results");
+const searchWrap = document.querySelector(".search-wrap");
+
 function closeSearchResults() {
- 
-    if (searchResults) {
- 
-        searchResults.classList.remove(
-            "active"
-        );
- 
-        searchResults.innerHTML =
-            "";
- 
-    }
- 
+    if (!searchResults) return;
+
+    searchResults.classList.remove("active");
+    searchResults.innerHTML = "";
 }
- 
+
+function performSearch() {
+    if (!searchInput) return;
+
+    const query = searchInput.value
+        .toLowerCase()
+        .trim();
+
+    const cards = document.querySelectorAll(".product-card");
+    const matches = [];
+
+    if (!query) {
+        cards.forEach(card => {
+            card.style.display = "";
+        });
+
+        closeSearchResults();
+        return;
+    }
+
+    cards.forEach(card => {
+        const titleElement = card.querySelector("h3");
+
+        if (!titleElement) return;
+
+        const title = titleElement.textContent
+            .toLowerCase()
+            .trim();
+
+        if (title.includes(query)) {
+            card.style.display = "";
+            matches.push(card);
+        } else {
+            card.style.display = "none";
+        }
+    });
+
+    if (!searchResults) return;
+
+    if (matches.length === 0) {
+        let noResults = "No results";
+
+        if (
+            typeof dictionary !== "undefined" &&
+            typeof activeLang !== "undefined" &&
+            dictionary[activeLang] &&
+            dictionary[activeLang].msgNoResults
+        ) {
+            noResults = dictionary[activeLang].msgNoResults;
+        }
+
+        searchResults.innerHTML = `
+            <div class="search-no-results">
+                ${escapeHTML(noResults)}
+            </div>
+        `;
+
+        searchResults.classList.add("active");
+        return;
+    }
+
+    searchResults.innerHTML = "";
+
+    matches.forEach(card => {
+        const titleElement = card.querySelector("h3");
+
+        if (!titleElement) return;
+
+        const name = titleElement.textContent.trim();
+        const imageElement = card.querySelector(".product-image");
+        const image = imageElement ? imageElement.src : "";
+
+        const item = document.createElement("button");
+
+        item.type = "button";
+        item.className = "search-result-item";
+
+        item.innerHTML = `
+            ${
+                image
+                    ? `<img src="${escapeHTML(image)}" alt="">`
+                    : ""
+            }
+            <span>
+                ${escapeHTML(name)}
+            </span>
+        `;
+
+        item.addEventListener(
+            "pointerdown",
+            e => {
+                e.preventDefault();
+                e.stopPropagation();
+            },
+            true
+        );
+
+        item.addEventListener(
+            "click",
+            e => {
+                e.preventDefault();
+                e.stopPropagation();
+
+                cards.forEach(c => {
+                    c.style.display = "";
+                });
+
+                searchInput.value = "";
+                closeSearchResults();
+                searchInput.blur();
+
+                setTimeout(() => {
+                    card.scrollIntoView({
+                        behavior: "smooth",
+                        block: "center"
+                    });
+
+                    card.classList.remove("search-highlight");
+
+                    void card.offsetWidth;
+
+                    card.classList.add("search-highlight");
+
+                    setTimeout(() => {
+                        card.classList.remove("search-highlight");
+                    }, 1600);
+                }, 50);
+            },
+            true
+        );
+
+        searchResults.appendChild(item);
+    });
+
+    searchResults.classList.add("active");
+}
+
 if (searchInput) {
- 
     searchInput.addEventListener(
         "input",
-        function() {
- 
-            const query =
-                searchInput.value
-                    .toLowerCase()
-                    .trim();
- 
-            const cards =
-                document.querySelectorAll(
-                    ".product-card"
-                );
- 
-            const matches = [];
- 
-            cards.forEach(card => {
- 
-                const title =
-                    card
-                        .querySelector("h3")
-                        .textContent
-                        .toLowerCase();
- 
-                const isMatch =
-                    title.includes(query);
- 
-                card.style.display =
-                    isMatch
-                        ? ""
-                        : "none";
- 
-                if (
-                    query &&
-                    isMatch
-                ) {
- 
-                    matches.push(card);
- 
-                }
- 
-            });
- 
-            if (!searchResults)
-                return;
- 
-            if (!query) {
- 
-                closeSearchResults();
- 
-                return;
- 
-            }
- 
-            if (matches.length === 0) {
- 
-                searchResults.innerHTML =
-                    `<div class="search-no-results">
-                        ${escapeHTML(dictionary[activeLang].msgNoResults)}
-                    </div>`;
- 
-                searchResults.classList.add(
-                    "active"
-                );
- 
-                return;
- 
-            }
- 
-            searchResults.innerHTML =
-                "";
- 
-            matches.forEach(card => {
- 
-                const name =
-                    card
-                        .querySelector("h3")
-                        .textContent;
- 
-                const image =
-                    card
-                        .querySelector(
-                            ".product-image"
-                        )
-                        .src;
- 
-                const item =
-                    document.createElement(
-                        "button"
-                    );
- 
-                item.type =
-                    "button";
- 
-                item.className =
-                    "search-result-item";
- 
-                item.innerHTML =
-                    `<img src="${escapeHTML(image)}" alt="">
-                     <span>
-                        ${escapeHTML(name)}
-                     </span>`;
- 
-                item.addEventListener(
-                    "click",
-                    () => {
- 
-                        document
-                            .querySelectorAll(
-                                ".product-card"
-                            )
-                            .forEach(
-                                c =>
-                                    c.style.display =
-                                        ""
-                            );
- 
-                        searchInput.value =
-                            "";
- 
-                        closeSearchResults();
- 
-                        card.scrollIntoView({
-                            behavior: "smooth",
-                            block: "center"
-                        });
- 
-                        card.classList.remove(
-                            "search-highlight"
-                        );
- 
-                        void card.offsetWidth;
- 
-                        card.classList.add(
-                            "search-highlight"
-                        );
- 
-                        setTimeout(
-                            () =>
-                                card.classList.remove(
-                                    "search-highlight"
-                                ),
-                            1600
-                        );
- 
-                    }
-                );
- 
-                searchResults.appendChild(
-                    item
-                );
- 
-            });
- 
-            searchResults.classList.add(
-                "active"
-            );
- 
-        }
+        performSearch
     );
- 
-    document.addEventListener(
+
+    searchInput.addEventListener(
+        "pointerdown",
+        e => {
+            e.stopPropagation();
+
+            if (typeof closeCart === "function") {
+                closeCart();
+            }
+        },
+        true
+    );
+
+    searchInput.addEventListener(
         "click",
-        (e) => {
- 
-            if (
-                !e.target.closest(
-                    ".search-wrap"
-                )
-            ) {
- 
-                closeSearchResults();
- 
-            }
- 
-        }
+        e => {
+            e.stopPropagation();
+        },
+        true
     );
- 
 }
+
+if (searchWrap) {
+    searchWrap.addEventListener(
+        "pointerdown",
+        e => {
+            e.stopPropagation();
+
+            if (typeof closeCart === "function") {
+                closeCart();
+            }
+        },
+        true
+    );
+}
+
+document.addEventListener(
+    "click",
+    e => {
+        if (
+            searchWrap &&
+            !searchWrap.contains(e.target)
+        ) {
+            closeSearchResults();
+        }
+    }
+);
  
 // =========================================================================
 // СЛОВАРЬ НАЗВАНИЙ
