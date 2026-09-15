@@ -2144,10 +2144,662 @@ a {
 .leaflet-container a.leaflet-popup-close-button {
     color: #948c7f;
 }
-/* ===== СТРЕЛКИ КАРУСЕЛИ НА ТЕЛЕФОНАХ ===== */
 
+
+/* ===== СТРЕЛКИ КАРУСЕЛИ НА ТЕЛЕФОНАХ ===== */
 @media (max-width: 768px) {
     .carousel-btn {
         display: none !important;
     }
+}
+
+
+
+
+
+
+
+/* =========================================================
+   MOBILE HEADER — НОВАЯ ПАНЕЛЬ
+   ========================================================= */
+
+/* По умолчанию мобильные элементы скрыты */
+.mobile-header-bar,
+.mobile-menu,
+.mobile-search-panel {
+    display: none;
+}
+
+
+
+
+
+
+/* =========================================================
+   MOBILE HEADER
+   Работает только на телефонах
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+
+    .main-header {
+        padding: 10px 10px 0 !important;
+        z-index: 100000;
+    }
+
+    .header-icons {
+        z-index: 100005 !important;
+        pointer-events: auto !important;
+    }
+
+    .cart-wrapper {
+        z-index: 100006 !important;
+        pointer-events: auto !important;
+    }
+
+    .cart-trigger {
+        position: relative;
+        z-index: 100007 !important;
+        pointer-events: auto !important;
+    }
+
+
+    
+
+    .nav-inner {
+        position: relative;
+
+        width: 100%;
+        height: 58px !important;
+
+        margin: 0 !important;
+        padding: 0 14px !important;
+
+        display: flex !important;
+        flex-direction: row !important;
+
+        align-items: center !important;
+        justify-content: space-between !important;
+
+        gap: 0 !important;
+
+        border-radius: 16px !important;
+
+        background: rgba(18, 16, 22, 0.92) !important;
+
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+
+        box-sizing: border-box;
+    }
+
+
+    /* -----------------------------------------------------
+       МОБИЛЬНАЯ ПАНЕЛЬ
+       ----------------------------------------------------- */
+
+    .mobile-header-bar {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    position: relative;
+
+    z-index: 100002;
+
+    /* Очень важно:
+       сама панель не перехватывает клики */
+    pointer-events: none;
+}
+
+
+/* Кнопка меню снова принимает клики */
+.mobile-menu-btn {
+    pointer-events: auto;
+}
+
+
+/* Логотип тоже кликабельный */
+.mobile-logo {
+    pointer-events: auto;
+}
+
+
+    /* -----------------------------------------------------
+       HAMBURGER
+       ----------------------------------------------------- */
+
+    .mobile-menu-btn {
+        width: 38px;
+        height: 38px;
+
+        padding: 7px;
+
+        border: 0;
+        border-radius: 10px;
+
+        background: transparent;
+
+        display: flex;
+        flex-direction: column;
+
+        justify-content: center;
+        align-items: center;
+
+        gap: 5px;
+
+        cursor: pointer;
+
+        z-index: 100003;
+
+        -webkit-tap-highlight-color: transparent;
+    }
+
+
+    .mobile-menu-btn span {
+        display: block;
+
+        width: 21px;
+        height: 2px;
+
+        background: var(--text);
+
+        border-radius: 10px;
+
+        transition:
+            transform 0.25s ease,
+            opacity 0.2s ease;
+    }
+
+
+    /* -----------------------------------------------------
+       HAMBURGER → КРЕСТИК
+       ----------------------------------------------------- */
+
+    .mobile-menu-btn.active span:nth-child(1) {
+        transform: translateY(7px) rotate(45deg);
+    }
+
+
+    .mobile-menu-btn.active span:nth-child(2) {
+        opacity: 0;
+    }
+
+
+    .mobile-menu-btn.active span:nth-child(3) {
+        transform: translateY(-7px) rotate(-45deg);
+    }
+
+
+    /* -----------------------------------------------------
+       МОБИЛЬНЫЙ ЛОГОТИП
+       ----------------------------------------------------- */
+
+    .mobile-logo {
+        position: absolute;
+
+        left: 50%;
+        top: 50%;
+
+        transform: translate(-50%, -50%);
+
+        font-family: 'Fraunces', serif;
+
+        font-size: 21px;
+        font-weight: 500;
+
+        white-space: nowrap;
+
+        color: var(--text);
+
+        z-index: 100001;
+    }
+
+
+    .mobile-logo em {
+        font-style: italic;
+
+        color: var(--gold);
+
+        font-weight: 400;
+    }
+
+
+    /* -----------------------------------------------------
+       СКРЫВАЕМ СТАРЫЙ ЛОГОТИП
+       ----------------------------------------------------- */
+
+    .nav-inner > .logo {
+        display: none !important;
+    }
+
+
+    /* -----------------------------------------------------
+       СКРЫВАЕМ СТАРОЕ МЕНЮ
+       ----------------------------------------------------- */
+
+    .nav-inner > .nav-links {
+        display: none !important;
+    }
+
+
+    /* -----------------------------------------------------
+       HEADER ICONS
+       ----------------------------------------------------- */
+
+    .header-icons {
+        position: absolute !important;
+
+        right: 8px;
+        top: 0;
+
+        width: auto !important;
+        height: 58px;
+
+        display: flex !important;
+
+        flex-direction: row !important;
+
+        align-items: center !important;
+        justify-content: flex-end !important;
+
+        gap: 0 !important;
+
+        flex-wrap: nowrap !important;
+
+        z-index: 100001;
+    }
+
+
+    /* -----------------------------------------------------
+       СТАРЫЙ ПОИСК
+       ----------------------------------------------------- */
+
+    .search-wrap {
+        display: none !important;
+    }
+
+
+    /* -----------------------------------------------------
+       СТАРЫЙ ВЫБОР ЯЗЫКА
+       ----------------------------------------------------- */
+
+    #language-select {
+        display: none !important;
+    }
+
+
+    /* -----------------------------------------------------
+       КОРЗИНА
+       ----------------------------------------------------- */
+
+    .cart-wrapper {
+        position: relative;
+
+        display: block;
+
+        z-index: 100004;
+    }
+
+
+    .cart-trigger {
+        width: 40px;
+        height: 40px;
+
+        border-radius: 10px;
+
+        -webkit-tap-highlight-color: transparent;
+    }
+
+
+    .cart-icon {
+        width: 19px;
+        height: 19px;
+    }
+
+
+    /* =====================================================
+       MOBILE MENU
+       ===================================================== */
+
+    .mobile-menu {
+        position: fixed;
+
+        top: 76px;
+        left: 10px;
+        right: 10px;
+
+        z-index: 99999;
+
+        padding: 12px;
+
+        border-radius: 16px;
+
+        background: rgba(18, 16, 22, 0.98);
+
+        border: 1px solid var(--border);
+
+        box-shadow:
+            0 20px 60px rgba(0, 0, 0, 0.45);
+
+        opacity: 0;
+        visibility: hidden;
+
+        transform: translateY(-10px);
+
+        transition:
+            opacity 0.25s ease,
+            transform 0.25s ease,
+            visibility 0.25s ease;
+
+        box-sizing: border-box;
+    }
+
+
+    .mobile-menu.active {
+        opacity: 1;
+
+        visibility: visible;
+
+        transform: translateY(0);
+    }
+
+
+    /* -----------------------------------------------------
+       ССЫЛКИ МОБИЛЬНОГО МЕНЮ
+       ----------------------------------------------------- */
+
+    .mobile-menu a {
+        display: flex;
+
+        align-items: center;
+
+        width: 100%;
+        min-height: 48px;
+
+        padding: 0 14px;
+
+        box-sizing: border-box;
+
+        border-radius: 10px;
+
+        color: var(--text);
+
+        font-family: 'Jura', sans-serif;
+
+        font-size: 14px;
+
+        text-transform: uppercase;
+
+        letter-spacing: 0.06em;
+
+        transition:
+            background 0.2s ease,
+            color 0.2s ease;
+
+        -webkit-tap-highlight-color: transparent;
+    }
+
+
+    .mobile-menu a:hover,
+    .mobile-menu a:active {
+        background: var(--surface-2);
+
+        color: var(--gold-bright);
+    }
+
+
+    /* -----------------------------------------------------
+       КНОПКА ПОИСКА
+       ----------------------------------------------------- */
+
+    .mobile-search-button {
+        width: 100%;
+        height: 48px;
+
+        margin-top: 6px;
+
+        padding: 0 14px;
+
+        border: 1px solid var(--border);
+
+        border-radius: 10px;
+
+        background: transparent;
+
+        color: var(--text);
+
+        font-family: 'Jura', sans-serif;
+
+        font-size: 14px;
+
+        text-align: left;
+
+        cursor: pointer;
+
+        box-sizing: border-box;
+
+        -webkit-tap-highlight-color: transparent;
+    }
+
+
+    .mobile-search-button:active {
+        background: var(--surface-2);
+    }
+
+
+    /* =====================================================
+       ЯЗЫКИ
+       ===================================================== */
+
+    .mobile-language {
+        display: flex;
+
+        gap: 8px;
+
+        padding: 10px 4px 4px;
+    }
+
+
+    .mobile-language button {
+        flex: 1;
+
+        height: 40px;
+
+        border: 1px solid var(--border);
+
+        border-radius: 9px;
+
+        background: transparent;
+
+        color: var(--text-muted);
+
+        font-family: 'Jura', sans-serif;
+
+        font-size: 13px;
+
+        cursor: pointer;
+
+        -webkit-tap-highlight-color: transparent;
+    }
+
+
+    .mobile-language button:active {
+        background: var(--surface-2);
+    }
+
+
+    .mobile-language button.active {
+        color: var(--gold-bright);
+
+        border-color: var(--gold);
+    }
+
+
+    /* =====================================================
+       MOBILE SEARCH PANEL
+       ===================================================== */
+
+    .mobile-search-panel {
+        position: fixed;
+
+        top: 76px;
+        left: 10px;
+        right: 10px;
+
+        z-index: 100000;
+
+        display: flex;
+
+        align-items: center;
+
+        gap: 10px;
+
+        padding: 10px;
+
+        border-radius: 16px;
+
+        background: rgba(18, 16, 22, 0.98);
+
+        border: 1px solid var(--border);
+
+        box-shadow:
+            0 20px 60px rgba(0, 0, 0, 0.45);
+
+        opacity: 0;
+        visibility: hidden;
+
+        transform: translateY(-10px);
+
+        transition:
+            opacity 0.25s ease,
+            transform 0.25s ease,
+            visibility 0.25s ease;
+
+        box-sizing: border-box;
+    }
+
+
+    .mobile-search-panel.active {
+        opacity: 1;
+
+        visibility: visible;
+
+        transform: translateY(0);
+    }
+
+
+    /* -----------------------------------------------------
+       SEARCH INPUT
+       ----------------------------------------------------- */
+
+    .mobile-search-panel input {
+        flex: 1;
+
+        min-width: 0;
+
+        width: 100%;
+        height: 42px;
+
+        padding: 0 12px;
+
+        border: 1px solid var(--border);
+
+        border-radius: 10px;
+
+        outline: none;
+
+        background: var(--surface-2);
+
+        color: var(--text);
+
+        font-family: 'Jura', sans-serif;
+
+        font-size: 14px;
+
+        box-sizing: border-box;
+    }
+
+
+    .mobile-search-panel input::placeholder {
+        color: var(--text-muted);
+    }
+
+
+    /* -----------------------------------------------------
+       CLOSE SEARCH
+       ----------------------------------------------------- */
+
+    .mobile-search-close {
+        flex: 0 0 42px;
+
+        width: 42px;
+        height: 42px;
+
+        padding: 0;
+
+        border: 0;
+
+        border-radius: 10px;
+
+        background: transparent;
+
+        color: var(--text);
+
+        font-size: 25px;
+
+        line-height: 1;
+
+        cursor: pointer;
+
+        -webkit-tap-highlight-color: transparent;
+    }
+
+
+    .mobile-search-close:active {
+        background: var(--surface-2);
+    }
+
+}
+
+
+/* =========================================================
+   VERY SMALL PHONES
+   ========================================================= */
+
+@media (max-width: 380px) {
+
+    .main-header {
+        padding-left: 7px !important;
+        padding-right: 7px !important;
+    }
+
+
+    .nav-inner {
+        padding-left: 10px !important;
+        padding-right: 10px !important;
+    }
+
+
+    .mobile-logo {
+        font-size: 19px;
+    }
+
+
+    .mobile-menu {
+        left: 7px;
+        right: 7px;
+    }
+
+
+    .mobile-search-panel {
+        left: 7px;
+        right: 7px;
+    }
+
 }

@@ -1,15 +1,7 @@
 /* ======================================================================
    НАСТРОЙКА EMAILJS — автописьмо клиенту "Спасибо за заказ"
-   ------------------------------------------------------------------
-   Письмо клиенту отправляется ТОЛЬКО после успешной оплаты PayPal.
- 
-   БЕЗОПАСНОСТЬ: EMAILJS_PUBLIC_KEY / SERVICE_ID / TEMPLATE_ID видны
-   в исходниках — это нормально для клиентской интеграции EmailJS,
-   но чтобы этими ключами нельзя было воспользоваться с чужого сайта
-   (спам через ваш аккаунт), в личном кабинете EmailJS обязательно
-   включите ограничение по разрешённым доменам (Allowed Origins /
-   Domain restriction), указав только домен InkTheory.
    ====================================================================== */
+
 const EMAILJS_PUBLIC_KEY  = "6ck12n75Ku0jwZinW";
 const EMAILJS_SERVICE_ID  = "service_ee9a096";
 const EMAILJS_TEMPLATE_ID = "template_kco6uyf";
@@ -1459,6 +1451,7 @@ if (searchInput) {
 
 }
 
+
 // =========================================================================
 // СЛОВАРЬ НАЗВАНИЙ
 //
@@ -2610,3 +2603,123 @@ if (
  
 }
  
+
+
+
+
+
+
+
+// =========================================================
+// MOBILE MENU
+// =========================================================
+
+const mobileMenuBtn =
+    document.getElementById("mobile-menu-btn");
+
+const mobileMenu =
+    document.getElementById("mobile-menu");
+
+
+// =========================================================
+// ОТКРЫТИЕ / ЗАКРЫТИЕ МОБИЛЬНОГО МЕНЮ
+// =========================================================
+
+if (mobileMenuBtn && mobileMenu) {
+
+    mobileMenuBtn.addEventListener("click", function (event) {
+
+        event.preventDefault();
+        event.stopPropagation();
+
+        const isOpen =
+            mobileMenu.classList.toggle("active");
+
+        mobileMenuBtn.classList.toggle(
+            "active",
+            isOpen
+        );
+
+        mobileMenuBtn.setAttribute(
+            "aria-expanded",
+            isOpen ? "true" : "false"
+        );
+
+    });
+
+}
+
+
+// =========================================================
+// ЗАКРЫТЬ МЕНЮ ПО ССЫЛКЕ
+// =========================================================
+
+if (mobileMenu) {
+
+    mobileMenu
+        .querySelectorAll("a")
+        .forEach(function (link) {
+
+            link.addEventListener(
+                "click",
+                function () {
+
+                    mobileMenu.classList.remove("active");
+
+                    mobileMenuBtn?.classList.remove("active");
+
+                    mobileMenuBtn?.setAttribute(
+                        "aria-expanded",
+                        "false"
+                    );
+
+                }
+            );
+
+        });
+
+}
+
+
+// =========================================================
+// ЗАКРЫТЬ МЕНЮ ПРИ КЛИКЕ СНАРУЖИ
+// =========================================================
+
+document.addEventListener(
+    "click",
+    function (event) {
+
+        if (
+            !mobileMenu ||
+            !mobileMenu.classList.contains("active")
+        ) {
+            return;
+        }
+
+
+        const clickedInsideMenu =
+            mobileMenu.contains(event.target);
+
+        const clickedButton =
+            mobileMenuBtn &&
+            mobileMenuBtn.contains(event.target);
+
+
+        if (
+            !clickedInsideMenu &&
+            !clickedButton
+        ) {
+
+            mobileMenu.classList.remove("active");
+
+            mobileMenuBtn?.classList.remove("active");
+
+            mobileMenuBtn?.setAttribute(
+                "aria-expanded",
+                "false"
+            );
+
+        }
+
+    }
+);
