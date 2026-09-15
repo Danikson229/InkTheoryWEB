@@ -1,23 +1,11 @@
 /* ======================================================================
    НАСТРОЙКА EMAILJS — автописьмо клиенту "Спасибо за заказ"
-   ------------------------------------------------------------------
-   Письмо клиенту отправляется ТОЛЬКО после успешной оплаты PayPal.
- 
-   БЕЗОПАСНОСТЬ: EMAILJS_PUBLIC_KEY / SERVICE_ID / TEMPLATE_ID видны
-   в исходниках — это нормально для клиентской интеграции EmailJS,
-   но чтобы этими ключами нельзя было воспользоваться с чужого сайта
-   (спам через ваш аккаунт), в личном кабинете EmailJS обязательно
-   включите ограничение по разрешённым доменам (Allowed Origins /
-   Domain restriction), указав только домен InkTheory.
    ====================================================================== */
+
 const EMAILJS_PUBLIC_KEY  = "6ck12n75Ku0jwZinW";
 const EMAILJS_SERVICE_ID  = "service_ee9a096";
 const EMAILJS_TEMPLATE_ID = "template_kco6uyf";
- 
-/* БЕЗОПАСНОСТЬ: прямой email в открытом виде в коде легко собирают
-   спам-боты. После активации формы на formsubmit.co там выдаётся
-   персональный хэш-эндпоинт вида https://formsubmit.co/xxxxxxxxx —
-   рекомендуется заменить им FORMSUBMIT_URL и оба "action" в PayPal.js. */
+
 const FORMSUBMIT_URL = "https://formsubmit.co/lyvero.company@gmail.com";
  
  
@@ -39,10 +27,6 @@ function sendCustomerConfirmationEmail(params) {
 // =========================================================================
 // HTML ESCAPE
 // -------------------------------------------------------------------------
-// Единственная функция экранирования на весь файл (раньше была
-// продублирована в двух местах — вторая копия незаметно перекрывала
-// первую; оставлена одна, чтобы не путать при дальнейшей доработке).
-// =========================================================================
  
 function escapeHTML(value) {
     return String(value ?? "")
@@ -67,30 +51,7 @@ const carrierLocatorLinks = {
     europe: "https://www.smartpost.ee/"
 };
  
-// =========================================================================
-// ДАННЫЕ О ТОВАРАХ И ИХ ТЕКУЩЕМ ВЫБОРЕ ДЛЯ МОДАЛКИ PAYPAL
-//
-// TODO ДЛЯ НОВЫХ ТОВАРОВ "new-product-1" / "new-product-2":
-//  1) поменять id на реальный (и точно так же — в index.html
-//     в data-product-id, и в объекте productNames ниже)
-//  2) вписать реальное name / price
-//  3) вписать реальные пути к картинкам вместо TODO-...
-//
-// ПРОВЕРЬ ВРУЧНУЮ (несостыковки путей, найденные при аудите — их нельзя
-// исправить вслепую без доступа к реальной папке images/ на сервере):
-//  - "signal-lost": data-white в index.html указывает на
-//    "images/TODO-new-3-white.png" — незаполненный плейсхолдер.
-//  - "no-kings": в этом объекте colors.black указывает на
-//    "images/No Kings.jpg", но в index.html для No Kings в селекте
-//    цвета доступен только "white", а data-black вообще пустой —
-//    похоже на неиспользуемые/устаревшие данные.
-//  - в data-images-* на некоторых карточках (No Kings, Time to live)
-//    часть путей начинается с "img/" вместо "images/", плюс опечатка
-//    "No KIngs-back.png" — с большой "I". Если файлы реально лежат
-//    в "images/", карусель для этих ракурсов будет показывать разбитую
-//    картинку.
-// =========================================================================
- 
+
 const products = [
     { id: 'signal-lost', name: 'Signal Lost', price: 18.00, colors: { black: 'images/signal-front.jpg', white: 'images/TODO-new-3-white.png' } },
     { id: 'no-kings', name: 'No Kings', price: 18.00, colors: { black: 'images/No Kings.jpg', white: 'images/No Kings.png' } },
@@ -936,13 +897,16 @@ if (cartTrigger) {
     cartTrigger.addEventListener("click", function (event) {
         event.preventDefault();
         event.stopPropagation();
-        if (cartWindow?.classList.contains("active")) {
+
+        if (cartWindow.classList.contains("active")) {
             closeCart();
-        } else {
+        } 
+        else {
             openCart();
         }
     });
 }
+
  
 if (closeCartButton) {
     closeCartButton.addEventListener("click", function (event) {
@@ -954,15 +918,15 @@ if (closeCartButton) {
  
 document.addEventListener("click", function (event) {
     if (!cartWindow || !cartWindow.classList.contains("active")) return;
-    
-    const wrapper = document.querySelector(".cart-wrapper");
-    const isClickInsideWrapper = wrapper && wrapper.contains(event.target);
+
+    const isClickInsideWindow = cartWindow.contains(event.target);
     const isClickOnTrigger = cartTrigger && cartTrigger.contains(event.target);
- 
-    if (!isClickInsideWrapper && !isClickOnTrigger) {
+
+    if (!isClickInsideWindow && !isClickOnTrigger) {
         closeCart();
     }
 });
+
  
 document.addEventListener("keydown", function (event) {
     if (event.key === "Escape" && cartWindow?.classList.contains("active")) {
@@ -1096,7 +1060,7 @@ function initCardCarousel(wrap) {
  
     let index = 0;
  
-        // =========================================================
+    // =========================================================
     // СВАЙП ПАЛЬЦЕМ НА ТЕЛЕФОНЕ
     // =========================================================
  
@@ -1284,12 +1248,12 @@ const searchInput =
     document.getElementById(
         "search-input"
     );
- 
+
 const searchResults =
     document.getElementById(
         "search-results"
     );
- 
+
 function closeSearchResults() {
  
     if (searchResults) {
@@ -1484,9 +1448,10 @@ if (searchInput) {
  
         }
     );
- 
+
 }
- 
+
+
 // =========================================================================
 // СЛОВАРЬ НАЗВАНИЙ
 //
@@ -2638,3 +2603,161 @@ if (
  
 }
  
+
+
+
+
+
+
+
+// =========================================================
+// MOBILE MENU
+// =========================================================
+
+function initMobileMenu() {
+
+    const mobileMenuBtn =
+        document.getElementById("mobile-menu-btn");
+
+    const mobileMenu =
+        document.getElementById("mobile-menu");
+
+
+    // Если элементов нет — ничего не делаем
+    if (!mobileMenuBtn || !mobileMenu) {
+        console.warn(
+            "Mobile menu: элементы #mobile-menu-btn или #mobile-menu не найдены."
+        );
+        return;
+    }
+
+
+    // =====================================================
+    // ОТКРЫТИЕ / ЗАКРЫТИЕ
+    // =====================================================
+
+    mobileMenuBtn.addEventListener("click", function (event) {
+
+        event.preventDefault();
+        event.stopPropagation();
+
+
+        const isOpen =
+            mobileMenu.classList.contains("active");
+
+
+        if (isOpen) {
+
+            mobileMenu.classList.remove("active");
+
+            mobileMenuBtn.classList.remove("active");
+
+            mobileMenuBtn.setAttribute(
+                "aria-expanded",
+                "false"
+            );
+
+        } else {
+
+            mobileMenu.classList.add("active");
+
+            mobileMenuBtn.classList.add("active");
+
+            mobileMenuBtn.setAttribute(
+                "aria-expanded",
+                "true"
+            );
+
+        }
+
+    });
+
+
+    // =====================================================
+    // ЗАКРЫТИЕ ПРИ НАЖАТИИ НА ССЫЛКУ
+    // =====================================================
+
+    mobileMenu
+        .querySelectorAll("a")
+        .forEach(function (link) {
+
+            link.addEventListener(
+                "click",
+                function () {
+
+                    mobileMenu.classList.remove("active");
+
+                    mobileMenuBtn.classList.remove("active");
+
+                    mobileMenuBtn.setAttribute(
+                        "aria-expanded",
+                        "false"
+                    );
+
+                }
+            );
+
+        });
+
+
+    // =====================================================
+    // КЛИК СНАРУЖИ
+    // =====================================================
+
+    document.addEventListener(
+        "click",
+        function (event) {
+
+            if (
+                !mobileMenu.classList.contains("active")
+            ) {
+                return;
+            }
+
+
+            const clickedInsideMenu =
+                mobileMenu.contains(event.target);
+
+
+            const clickedButton =
+                mobileMenuBtn.contains(event.target);
+
+
+            if (
+                !clickedInsideMenu &&
+                !clickedButton
+            ) {
+
+                mobileMenu.classList.remove("active");
+
+                mobileMenuBtn.classList.remove("active");
+
+                mobileMenuBtn.setAttribute(
+                    "aria-expanded",
+                    "false"
+                );
+
+            }
+
+        }
+    );
+
+}
+
+
+// =========================================================
+// ЗАПУСК
+// =========================================================
+
+if (document.readyState === "loading") {
+
+    document.addEventListener(
+        "DOMContentLoaded",
+        initMobileMenu
+    );
+
+} else {
+
+    initMobileMenu();
+
+}

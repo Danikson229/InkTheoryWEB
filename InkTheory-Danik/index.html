@@ -54,17 +54,70 @@
 
 <div class="grain"></div>
 
+<!-- =========================================================
+     HEADER
+     ========================================================= -->
+
 <header class="main-header" id="siteNav">
+
+    <!-- =====================================================
+         MAIN NAVIGATION CONTAINER
+         ===================================================== -->
 
     <div class="nav-inner">
 
-        <!-- LOGO -->
-        <a href="#top" class="logo">
+
+        <!-- =================================================
+             MOBILE HEADER
+             ================================================= -->
+
+        <div class="mobile-header-bar">
+
+            <!-- HAMBURGER -->
+
+            <button
+                type="button"
+                class="mobile-menu-btn"
+                id="mobile-menu-btn"
+                aria-label="Открыть меню"
+                aria-expanded="false"
+            >
+
+                <span></span>
+                <span></span>
+                <span></span>
+
+            </button>
+
+
+            <!-- MOBILE LOGO -->
+
+            <a
+                href="#top"
+                class="mobile-logo"
+            >
+                Ink<em>Theory</em>
+            </a>
+
+        </div>
+
+
+        <!-- =================================================
+             DESKTOP LOGO
+             ================================================= -->
+
+        <a
+            href="#top"
+            class="logo"
+        >
             Ink<em>Theory</em>
         </a>
 
 
-        <!-- NAVIGATION -->
+        <!-- =================================================
+             DESKTOP NAVIGATION
+             ================================================= -->
+
         <nav class="nav-links">
 
             <a
@@ -91,11 +144,17 @@
         </nav>
 
 
-        <!-- HEADER ICONS -->
+        <!-- =================================================
+             HEADER ICONS
+             ================================================= -->
+
         <div class="header-icons">
 
 
-            <!-- SEARCH -->
+            <!-- =================================================
+                 SEARCH
+                 ================================================= -->
+
             <div class="search-wrap">
 
                 <img
@@ -119,7 +178,10 @@
             </div>
 
 
-            <!-- LANGUAGE -->
+            <!-- =================================================
+                 LANGUAGE
+                 ================================================= -->
+
             <select
                 id="language-select"
                 aria-label="Выбор языка"
@@ -140,14 +202,15 @@
             </select>
 
 
-            <!-- ===================================================== -->
-            <!-- КОРЗИНА -->
-            <!-- ===================================================== -->
+            <!-- =================================================
+                 CART
+                 ================================================= -->
 
             <div class="cart-wrapper">
 
 
                 <!-- CART BUTTON -->
+
                 <button
                     type="button"
                     class="cart-trigger"
@@ -168,9 +231,9 @@
                 </button>
 
 
-                <!-- ================================================= -->
-                <!-- CART WINDOW -->
-                <!-- ================================================= -->
+                <!-- =================================================
+                     CART WINDOW
+                     ================================================= -->
 
                 <div
                     class="cart-window"
@@ -179,6 +242,7 @@
 
 
                     <!-- CART HEADER -->
+
                     <div class="cart-header">
 
                         <h3 id="lang-cart-title">
@@ -196,9 +260,9 @@
                     </div>
 
 
-                    <!-- ================================================= -->
-                    <!-- CART ITEMS -->
-                    <!-- ================================================= -->
+                    <!-- =================================================
+                         CART ITEMS
+                         ================================================= -->
 
                     <div class="cart-items">
 
@@ -209,14 +273,15 @@
                     </div>
 
 
-                    <!-- ================================================= -->
-                    <!-- CART SUMMARY -->
-                    <!-- ================================================= -->
+                    <!-- =================================================
+                         CART SUMMARY
+                         ================================================= -->
 
                     <div class="cart-summary">
 
 
                         <!-- SUBTOTAL -->
+
                         <div class="cart-summary-row">
 
                             <span id="lang-cart-subtotal-label">
@@ -231,6 +296,7 @@
 
 
                         <!-- SHIPPING -->
+
                         <div class="cart-summary-row">
 
                             <span id="lang-cart-shipping-label">
@@ -245,6 +311,7 @@
 
 
                         <!-- TOTAL -->
+
                         <div
                             class="cart-summary-row cart-summary-total"
                         >
@@ -262,9 +329,9 @@
                     </div>
 
 
-                    <!-- ================================================= -->
-                    <!-- CHECKOUT -->
-                    <!-- ================================================= -->
+                    <!-- =================================================
+                         CHECKOUT
+                         ================================================= -->
 
                     <button
                         type="button"
@@ -275,9 +342,9 @@
                     </button>
 
 
-                    <!-- ================================================= -->
-                    <!-- CLEAR CART -->
-                    <!-- ================================================= -->
+                    <!-- =================================================
+                         CLEAR CART
+                         ================================================= -->
 
                     <button
                         type="button"
@@ -295,9 +362,102 @@
 
         </div>
 
+
     </div>
+    <!-- END .nav-inner -->
+
+
+    <!-- =====================================================
+         MOBILE MENU
+         ===================================================== -->
+
+    <div
+        class="mobile-menu"
+        id="mobile-menu"
+    >
+
+
+        <!-- HOME -->
+
+        <a href="#top">
+            Главная
+        </a>
+
+
+        <!-- CATALOG -->
+
+        <a href="#catalog">
+            Каталог
+        </a>
+
+
+        <!-- ABOUT -->
+
+        <a href="#footer">
+            О нас
+        </a>
+
+
+        <!-- CONTACTS -->
+
+        <a href="#footer">
+            Контакты
+        </a>
+
+
+        <!-- =================================================
+             SEARCH BUTTON
+             ================================================= -->
+
+        <button
+            type="button"
+            class="mobile-search-button"
+            id="mobile-search-button"
+        >
+            🔍&nbsp;&nbsp;Поиск
+        </button>
+
+
+        <!-- =================================================
+             LANGUAGE
+             ================================================= -->
+
+        <div class="mobile-language">
+
+
+            <button
+                type="button"
+                data-mobile-lang="ru"
+            >
+                RUS
+            </button>
+
+
+            <button
+                type="button"
+                data-mobile-lang="en"
+            >
+                ENG
+            </button>
+
+
+            <button
+                type="button"
+                data-mobile-lang="et"
+            >
+                EST
+            </button>
+
+
+        </div>
+
+
+    </div>
+    <!-- END .mobile-menu -->
+
 
 </header>
+
 
 
 <!-- ============================================================= -->
@@ -933,14 +1093,19 @@
 
                         <select class="color-select">
 
-                            <option value="black">
+                            <option
+                                value="black"
+                                class="lang-color-black"
+                            >
                                 Черный
                             </option>
 
-                            <option value="white">
+                            <option
+                                value="white"
+                                class="lang-color-white"
+                            >
                                 Белый
                             </option>
-
                         </select>
 
                     </div>
@@ -1071,9 +1236,19 @@
 
                         <select class="color-select">
 
-                            <option value="black">
+                               <option
+                                value="black"
+                                class="lang-color-black"
+                            >
                                 Черный
                             </option>
+
+                            <option
+                                value="white"
+                                class="lang-color-white"
+                            >
+                                Белый
+                            </option>   
 
                         </select>
 
@@ -1343,11 +1518,17 @@
 
                         <select class="color-select">
 
-                            <option value="black">
+                           <option
+                                value="black"
+                                class="lang-color-black"
+                            >
                                 Черный
                             </option>
 
-                            <option value="white">
+                            <option
+                                value="white"
+                                class="lang-color-white"
+                            >
                                 Белый
                             </option>
 
@@ -1481,11 +1662,17 @@
 
                         <select class="color-select">
 
-                            <option value="black">
+                            <option
+                                value="black"
+                                class="lang-color-black"
+                            >
                                 Черный
                             </option>
 
-                            <option value="white">
+                            <option
+                                value="white"
+                                class="lang-color-white"
+                            >
                                 Белый
                             </option>
 
