@@ -58,19 +58,13 @@
 
     <div class="nav-inner">
 
-        <!-- =====================================================
-             DESKTOP LOGO
-             ===================================================== -->
-
+        <!-- LOGO -->
         <a href="#top" class="logo">
             Ink<em>Theory</em>
         </a>
 
 
-        <!-- =====================================================
-             DESKTOP NAVIGATION
-             ===================================================== -->
-
+        <!-- NAVIGATION -->
         <nav class="nav-links">
 
             <a
@@ -97,14 +91,11 @@
         </nav>
 
 
-        <!-- =====================================================
-             DESKTOP HEADER ICONS
-             ===================================================== -->
-
+        <!-- HEADER ICONS -->
         <div class="header-icons">
 
-            <!-- SEARCH -->
 
+            <!-- SEARCH -->
             <div class="search-wrap">
 
                 <img
@@ -129,7 +120,6 @@
 
 
             <!-- LANGUAGE -->
-
             <select
                 id="language-select"
                 aria-label="Выбор языка"
@@ -150,12 +140,14 @@
             </select>
 
 
-            <!-- =================================================
-                 CART
-                 ================================================= -->
+            <!-- ===================================================== -->
+            <!-- КОРЗИНА -->
+            <!-- ===================================================== -->
 
             <div class="cart-wrapper">
 
+
+                <!-- CART BUTTON -->
                 <button
                     type="button"
                     class="cart-trigger"
@@ -176,11 +168,17 @@
                 </button>
 
 
+                <!-- ================================================= -->
+                <!-- CART WINDOW -->
+                <!-- ================================================= -->
+
                 <div
                     class="cart-window"
                     aria-label="Корзина"
                 >
 
+
+                    <!-- CART HEADER -->
                     <div class="cart-header">
 
                         <h3 id="lang-cart-title">
@@ -198,6 +196,10 @@
                     </div>
 
 
+                    <!-- ================================================= -->
+                    <!-- CART ITEMS -->
+                    <!-- ================================================= -->
+
                     <div class="cart-items">
 
                         <p id="lang-cart-empty">
@@ -207,8 +209,14 @@
                     </div>
 
 
+                    <!-- ================================================= -->
+                    <!-- CART SUMMARY -->
+                    <!-- ================================================= -->
+
                     <div class="cart-summary">
 
+
+                        <!-- SUBTOTAL -->
                         <div class="cart-summary-row">
 
                             <span id="lang-cart-subtotal-label">
@@ -222,6 +230,7 @@
                         </div>
 
 
+                        <!-- SHIPPING -->
                         <div class="cart-summary-row">
 
                             <span id="lang-cart-shipping-label">
@@ -235,7 +244,10 @@
                         </div>
 
 
-                        <div class="cart-summary-row cart-summary-total">
+                        <!-- TOTAL -->
+                        <div
+                            class="cart-summary-row cart-summary-total"
+                        >
 
                             <span id="lang-cart-total-label">
                                 Итого
@@ -250,6 +262,10 @@
                     </div>
 
 
+                    <!-- ================================================= -->
+                    <!-- CHECKOUT -->
+                    <!-- ================================================= -->
+
                     <button
                         type="button"
                         class="checkout-btn"
@@ -259,6 +275,10 @@
                     </button>
 
 
+                    <!-- ================================================= -->
+                    <!-- CLEAR CART -->
+                    <!-- ================================================= -->
+
                     <button
                         type="button"
                         class="clear-cart"
@@ -267,176 +287,17 @@
                         Очистить корзину
                     </button>
 
+
                 </div>
 
             </div>
 
-        </div>
-
-
-        <div class="mobile-header-bar">
-
-            <button
-                type="button"
-                class="mobile-menu-btn"
-                id="mobile-menu-btn"
-                aria-label="Открыть меню"
-                aria-expanded="false"
-            >
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-
-            <!-- CENTER: LOGO -->
-            <a
-                href="#top"
-                class="mobile-logo"
-            >
-                Ink<em>Theory</em>
-            </a>
-
-            <!-- RIGHT: LANGUAGE + SEARCH + CART -->
-            <div class="mobile-header-actions">
-
-                <!-- LANGUAGE (mobile) -->
-                <select
-                    id="mobile-language-select"
-                    class="mobile-language-select"
-                    aria-label="Выбор языка"
-                >
-                    <option value="ru">RUS</option>
-                    <option value="en">ENG</option>
-                    <option value="et">EST</option>
-                </select>
-
-                <!-- SEARCH BUTTON -->
-                <button
-                    type="button"
-                    class="mobile-action-btn"
-                    id="mobile-search-btn"
-                    aria-label="Поиск"
-                >
-                    <img
-                        src="search.svg"
-                        alt=""
-                    >
-                </button>
-
-                <!-- CART -->
-                <button
-                    type="button"
-                    class="mobile-action-btn mobile-cart-btn"
-                    id="mobile-cart-btn"
-                    aria-label="Корзина"
-                >
-                    <img
-                        src="shopping-cart.svg"
-                        alt=""
-                    >
-                    <span
-                        class="mobile-cart-count"
-                        id="mobile-cart-count"
-                    >
-                        0
-                    </span>
-                </button>
-
-            </div>
 
         </div>
+
+    </div>
 
 </header>
-
-
-<!-- =========================================================
-     MOBILE SEARCH
-     ========================================================= -->
-
-<div
-    class="mobile-search-overlay"
-    id="mobile-search-overlay"
->
-    <div class="mobile-search-box">
-        <div class="mobile-search-input-wrap">
-            <img
-                src="search.svg"
-                alt=""
-            >
-            <input
-                type="text"
-                id="mobile-search-input"
-                placeholder="Поиск..."
-                autocomplete="off"
-            >
-        </div>
-        <div
-            class="mobile-search-results"
-            id="mobile-search-results"
-        ></div>
-    </div>
-</div>
-
-
-<!-- =========================================================
-     MOBILE SIDE MENU
-     ========================================================= -->
-
-<div
-    class="mobile-menu-overlay"
-    id="mobile-menu-overlay"
-></div>
-
-
-<aside
-    class="mobile-side-menu"
-    id="mobile-side-menu"
->
-
-    <div class="mobile-side-menu-header">
-
-        <span class="mobile-side-title">
-            Menu
-        </span>
-
-        <button
-            type="button"
-            class="mobile-side-close"
-            id="mobile-side-close"
-            aria-label="Закрыть меню"
-        >
-            ×
-        </button>
-
-    </div>
-
-
-    <nav class="mobile-side-links">
-
-        <a
-            href="#catalog"
-            id="lang-mobile-catalog"
-        >
-            Каталог
-        </a>
-
-        <a
-            href="#footer"
-            id="lang-mobile-about"
-        >
-            О нас
-        </a>
-
-        <a
-            href="#footer"
-            id="lang-mobile-contacts"
-        >
-            Контакты
-        </a>
-
-    </nav>
-
-</aside>
 
 
 <!-- ============================================================= -->
@@ -609,7 +470,7 @@
                 </h3>
 
                 <p class="product-price">
-                    18 €
+                    1 €
                 </p>
 
 
@@ -776,7 +637,7 @@
                 </h3>
 
                 <p class="product-price">
-                    18 €
+                    1 €
                 </p>
 
 
@@ -1072,19 +933,14 @@
 
                         <select class="color-select">
 
-                            <option
-                                value="black"
-                                class="lang-color-black"
-                            >
+                            <option value="black">
                                 Черный
                             </option>
 
-                            <option
-                                value="white"
-                                class="lang-color-white"
-                            >
+                            <option value="white">
                                 Белый
                             </option>
+
                         </select>
 
                     </div>
@@ -1215,19 +1071,9 @@
 
                         <select class="color-select">
 
-                               <option
-                                value="black"
-                                class="lang-color-black"
-                            >
+                            <option value="black">
                                 Черный
                             </option>
-
-                            <option
-                                value="white"
-                                class="lang-color-white"
-                            >
-                                Белый
-                            </option>   
 
                         </select>
 
@@ -1497,17 +1343,11 @@
 
                         <select class="color-select">
 
-                           <option
-                                value="black"
-                                class="lang-color-black"
-                            >
+                            <option value="black">
                                 Черный
                             </option>
 
-                            <option
-                                value="white"
-                                class="lang-color-white"
-                            >
+                            <option value="white">
                                 Белый
                             </option>
 
@@ -1641,17 +1481,11 @@
 
                         <select class="color-select">
 
-                            <option
-                                value="black"
-                                class="lang-color-black"
-                            >
+                            <option value="black">
                                 Черный
                             </option>
 
-                            <option
-                                value="white"
-                                class="lang-color-white"
-                            >
+                            <option value="white">
                                 Белый
                             </option>
 
@@ -1667,9 +1501,12 @@
                         </label>
 
                         <select>
+
                             <option>S</option>
                             <option>M</option>
+
                         </select>
+
                     </div>
 
 
@@ -1688,7 +1525,9 @@
                             <option value="oversize">Oversize</option>
 
                         </select>
+
                     </div>
+
                 </div>
 
 
@@ -1706,8 +1545,11 @@
                     >
                         Добавить в корзину
                     </button>
+
                 </div>
+
             </div>
+
         </div>
 
 
@@ -1750,8 +1592,11 @@
                 >
                     ›
                 </button>
+
                 <div class="carousel-dots"></div>
+
             </div>
+
 
             <div class="product-body">
 
@@ -1765,10 +1610,13 @@
 
 
                 <div class="options">
+
                     <div class="option-row">
+
                         <label class="lang-label-color">
                             Цвет
                         </label>
+
                         <select class="color-select">
 
                             <option
@@ -1777,7 +1625,9 @@
                             >
                                 Черный
                             </option>
+
                         </select>
+
                     </div>
 
 
@@ -1788,10 +1638,14 @@
                         </label>
 
                         <select>
+
                             <option>S</option>
                             <option>M</option>
+
                         </select>
+
                     </div>
+
 
                     <div class="option-row">
 
@@ -1808,7 +1662,9 @@
                             <option value="oversize">Oversize</option>
 
                         </select>
+
                     </div>
+
                 </div>
 
 
@@ -1829,8 +1685,12 @@
                     </button>
 
                 </div>
+
             </div>
+
         </div>
+
+
     </div>
 
 </section>
@@ -1846,10 +1706,9 @@
             <div class="footer-about reveal">
                 <div class="logo footer-logo">Ink<em>Theory</em></div>
                 <p id="lang-footer-about">
-                   Мы используем футболки H&M из 100% хлопка, и качетвенной плотной ткани
-                   обеспечивающей комфорт и долговечность. 
-                   Печать наносится с помощью высококачественной технологии DTF (Direct to Film), которая
-                   позволяет получить яркое и детализированное изображение с высокой стойкостью. 
+                    Мы создаём одежду с уникальными принтами,
+                    вдохновлёнными искусством, культурой и
+                    современным дизайном.
                 </p>
             </div>
 
