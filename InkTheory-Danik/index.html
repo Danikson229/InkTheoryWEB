@@ -54,69 +54,22 @@
 
 <div class="grain"></div>
 
-<!-- =========================================================
-     HEADER
-     ========================================================= -->
-
 <header class="main-header" id="siteNav">
-
-    <!-- =====================================================
-         MAIN NAVIGATION CONTAINER
-         ===================================================== -->
 
     <div class="nav-inner">
 
-
-        <!-- =================================================
-             MOBILE HEADER
-             ================================================= -->
-
-        <div class="mobile-header-bar">
-
-            <!-- HAMBURGER -->
-
-            <button
-                type="button"
-                class="mobile-menu-btn"
-                id="mobile-menu-btn"
-                aria-label="Открыть меню"
-                aria-expanded="false"
-            >
-
-                <span></span>
-                <span></span>
-                <span></span>
-
-            </button>
-
-
-            <!-- MOBILE LOGO -->
-
-            <a
-                href="#top"
-                class="mobile-logo"
-            >
-                Ink<em>Theory</em>
-            </a>
-
-        </div>
-
-
-        <!-- =================================================
+        <!-- =====================================================
              DESKTOP LOGO
-             ================================================= -->
+             ===================================================== -->
 
-        <a
-            href="#top"
-            class="logo"
-        >
+        <a href="#top" class="logo">
             Ink<em>Theory</em>
         </a>
 
 
-        <!-- =================================================
+        <!-- =====================================================
              DESKTOP NAVIGATION
-             ================================================= -->
+             ===================================================== -->
 
         <nav class="nav-links">
 
@@ -144,16 +97,13 @@
         </nav>
 
 
-        <!-- =================================================
-             HEADER ICONS
-             ================================================= -->
+        <!-- =====================================================
+             DESKTOP HEADER ICONS
+             ===================================================== -->
 
         <div class="header-icons">
 
-
-            <!-- =================================================
-                 SEARCH
-                 ================================================= -->
+            <!-- SEARCH -->
 
             <div class="search-wrap">
 
@@ -178,9 +128,7 @@
             </div>
 
 
-            <!-- =================================================
-                 LANGUAGE
-                 ================================================= -->
+            <!-- LANGUAGE -->
 
             <select
                 id="language-select"
@@ -208,9 +156,6 @@
 
             <div class="cart-wrapper">
 
-
-                <!-- CART BUTTON -->
-
                 <button
                     type="button"
                     class="cart-trigger"
@@ -231,17 +176,10 @@
                 </button>
 
 
-                <!-- =================================================
-                     CART WINDOW
-                     ================================================= -->
-
                 <div
                     class="cart-window"
                     aria-label="Корзина"
                 >
-
-
-                    <!-- CART HEADER -->
 
                     <div class="cart-header">
 
@@ -260,10 +198,6 @@
                     </div>
 
 
-                    <!-- =================================================
-                         CART ITEMS
-                         ================================================= -->
-
                     <div class="cart-items">
 
                         <p id="lang-cart-empty">
@@ -273,14 +207,7 @@
                     </div>
 
 
-                    <!-- =================================================
-                         CART SUMMARY
-                         ================================================= -->
-
                     <div class="cart-summary">
-
-
-                        <!-- SUBTOTAL -->
 
                         <div class="cart-summary-row">
 
@@ -295,8 +222,6 @@
                         </div>
 
 
-                        <!-- SHIPPING -->
-
                         <div class="cart-summary-row">
 
                             <span id="lang-cart-shipping-label">
@@ -310,11 +235,7 @@
                         </div>
 
 
-                        <!-- TOTAL -->
-
-                        <div
-                            class="cart-summary-row cart-summary-total"
-                        >
+                        <div class="cart-summary-row cart-summary-total">
 
                             <span id="lang-cart-total-label">
                                 Итого
@@ -329,10 +250,6 @@
                     </div>
 
 
-                    <!-- =================================================
-                         CHECKOUT
-                         ================================================= -->
-
                     <button
                         type="button"
                         class="checkout-btn"
@@ -342,10 +259,6 @@
                     </button>
 
 
-                    <!-- =================================================
-                         CLEAR CART
-                         ================================================= -->
-
                     <button
                         type="button"
                         class="clear-cart"
@@ -354,110 +267,176 @@
                         Очистить корзину
                     </button>
 
-
                 </div>
 
             </div>
 
-
         </div>
 
 
-    </div>
-    <!-- END .nav-inner -->
-
-
-    <!-- =====================================================
-         MOBILE MENU
-         ===================================================== -->
-
-    <div
-        class="mobile-menu"
-        id="mobile-menu"
-    >
-
-
-        <!-- HOME -->
-
-        <a href="#top">
-            Главная
-        </a>
-
-
-        <!-- CATALOG -->
-
-        <a href="#catalog">
-            Каталог
-        </a>
-
-
-        <!-- ABOUT -->
-
-        <a href="#footer">
-            О нас
-        </a>
-
-
-        <!-- CONTACTS -->
-
-        <a href="#footer">
-            Контакты
-        </a>
-
-
-        <!-- =================================================
-             SEARCH BUTTON
-             ================================================= -->
-
-        <button
-            type="button"
-            class="mobile-search-button"
-            id="mobile-search-button"
-        >
-            🔍&nbsp;&nbsp;Поиск
-        </button>
-
-
-        <!-- =================================================
-             LANGUAGE
-             ================================================= -->
-
-        <div class="mobile-language">
-
+        <div class="mobile-header-bar">
 
             <button
                 type="button"
-                data-mobile-lang="ru"
+                class="mobile-menu-btn"
+                id="mobile-menu-btn"
+                aria-label="Открыть меню"
+                aria-expanded="false"
             >
-                RUS
+                <span></span>
+                <span></span>
+                <span></span>
             </button>
 
-
-            <button
-                type="button"
-                data-mobile-lang="en"
+            <!-- CENTER: LOGO -->
+            <a
+                href="#top"
+                class="mobile-logo"
             >
-                ENG
-            </button>
+                Ink<em>Theory</em>
+            </a>
 
+            <!-- RIGHT: LANGUAGE + SEARCH + CART -->
+            <div class="mobile-header-actions">
 
-            <button
-                type="button"
-                data-mobile-lang="et"
-            >
-                EST
-            </button>
+                <!-- LANGUAGE (mobile) -->
+                <select
+                    id="mobile-language-select"
+                    class="mobile-language-select"
+                    aria-label="Выбор языка"
+                >
+                    <option value="ru">RUS</option>
+                    <option value="en">ENG</option>
+                    <option value="et">EST</option>
+                </select>
 
+                <!-- SEARCH BUTTON -->
+                <button
+                    type="button"
+                    class="mobile-action-btn"
+                    id="mobile-search-btn"
+                    aria-label="Поиск"
+                >
+                    <img
+                        src="search.svg"
+                        alt=""
+                    >
+                </button>
+
+                <!-- CART -->
+                <button
+                    type="button"
+                    class="mobile-action-btn mobile-cart-btn"
+                    id="mobile-cart-btn"
+                    aria-label="Корзина"
+                >
+                    <img
+                        src="shopping-cart.svg"
+                        alt=""
+                    >
+                    <span
+                        class="mobile-cart-count"
+                        id="mobile-cart-count"
+                    >
+                        0
+                    </span>
+                </button>
+
+            </div>
 
         </div>
-
-
-    </div>
-    <!-- END .mobile-menu -->
-
 
 </header>
 
+
+<!-- =========================================================
+     MOBILE SEARCH
+     ========================================================= -->
+
+<div
+    class="mobile-search-overlay"
+    id="mobile-search-overlay"
+>
+    <div class="mobile-search-box">
+        <div class="mobile-search-input-wrap">
+            <img
+                src="search.svg"
+                alt=""
+            >
+            <input
+                type="text"
+                id="mobile-search-input"
+                placeholder="Поиск..."
+                autocomplete="off"
+            >
+        </div>
+        <div
+            class="mobile-search-results"
+            id="mobile-search-results"
+        ></div>
+    </div>
+</div>
+
+
+<!-- =========================================================
+     MOBILE SIDE MENU
+     ========================================================= -->
+
+<div
+    class="mobile-menu-overlay"
+    id="mobile-menu-overlay"
+></div>
+
+
+<aside
+    class="mobile-side-menu"
+    id="mobile-side-menu"
+>
+
+    <div class="mobile-side-menu-header">
+
+        <span class="mobile-side-title">
+            Menu
+        </span>
+
+        <button
+            type="button"
+            class="mobile-side-close"
+            id="mobile-side-close"
+            aria-label="Закрыть меню"
+        >
+            ×
+        </button>
+
+    </div>
+
+
+    <nav class="mobile-side-links">
+
+        <a
+            href="#catalog"
+            id="lang-mobile-catalog"
+        >
+            Каталог
+        </a>
+
+        <a
+            href="#footer"
+            id="lang-mobile-about"
+        >
+            О нас
+        </a>
+
+        <a
+            href="#footer"
+            id="lang-mobile-contacts"
+        >
+            Контакты
+        </a>
+
+    </nav>
+
+</aside>
 
 
 <!-- ============================================================= -->

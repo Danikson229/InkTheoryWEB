@@ -1,6 +1,3 @@
-/* ======================================================================
-   НАСТРОЙКА EMAILJS — автописьмо клиенту "Спасибо за заказ"
-   ====================================================================== */
 
 const EMAILJS_PUBLIC_KEY  = "6ck12n75Ku0jwZinW";
 const EMAILJS_SERVICE_ID  = "service_ee9a096";
@@ -340,10 +337,7 @@ const checkoutButton =
     document.getElementById("lang-cart-checkout") ||
     document.querySelector(".checkout-btn");
  
-// =========================================================================
-// СОХРАНЕНИЕ
-// =========================================================================
- 
+
 function saveCart() {
     localStorage.setItem(
         CART_STORAGE_KEY,
@@ -386,10 +380,6 @@ function placeCartWindow() {
  
 window.addEventListener("resize", placeCartWindow);
 placeCartWindow();
- 
-// =========================================================================
-// ФОРМАТ ЦЕНЫ
-// =========================================================================
  
 function money(value) {
     return Number(value || 0).toFixed(2);
@@ -456,10 +446,6 @@ function getCartProductData(button) {
         quantity: 1
     };
 }
- 
-// =========================================================================
-// УНИКАЛЬНОСТЬ ТОВАРА
-// =========================================================================
  
 function cartItemKey(item) {
     return [item.id, item.color, item.size, item.fit].join("|");
@@ -660,10 +646,6 @@ function updateCart() {
             const lineTotal =
                 Number(item.price || 0) * quantity;
  
-            // =========================================================================
-            // ПЕРЕВОД ЦВЕТА
-            // =========================================================================
- 
             const colorMap = {
                 white: d.clrWhite,
                 black: d.clrBlack
@@ -673,10 +655,6 @@ function updateCart() {
                 colorMap[item.color] ||
                 item.color ||
                 "";
- 
-            // =========================================================================
-            // ПЕРЕВОД ПОСАДКИ
-            // =========================================================================
  
             const fitMap = {
                 slim: d.fitSlim,
@@ -690,10 +668,6 @@ function updateCart() {
                 fitMap[item.fit] ||
                 item.fit ||
                 d.fitRegular;
- 
-            // =========================================================================
-            // НАЗВАНИЕ ТОВАРА
-            // =========================================================================
  
             const translatedName =
                 productNames[item.id]?.[activeLang] ||
@@ -916,18 +890,46 @@ if (closeCartButton) {
     });
 }
  
+
+
 document.addEventListener("click", function (event) {
-    if (!cartWindow || !cartWindow.classList.contains("active")) return;
 
-    const isClickInsideWindow = cartWindow.contains(event.target);
-    const isClickOnTrigger = cartTrigger && cartTrigger.contains(event.target);
-
-    if (!isClickInsideWindow && !isClickOnTrigger) {
-        closeCart();
+    if (
+        !cartWindow ||
+        !cartWindow.classList.contains("active")
+    ) {
+        return;
     }
+
+
+    const isClickInsideWindow =
+        cartWindow.contains(event.target);
+
+
+    const isClickOnDesktopTrigger =
+        cartTrigger &&
+        cartTrigger.contains(event.target);
+
+
+    const isClickOnMobileTrigger =
+        event.target.closest &&
+        event.target.closest("#mobile-cart-btn");
+
+
+    if (
+        !isClickInsideWindow &&
+        !isClickOnDesktopTrigger &&
+        !isClickOnMobileTrigger
+    ) {
+
+        closeCart();
+
+    }
+
 });
 
  
+
 document.addEventListener("keydown", function (event) {
     if (event.key === "Escape" && cartWindow?.classList.contains("active")) {
         closeCart();
@@ -1451,6 +1453,35 @@ if (searchInput) {
 
 }
 
+
+// =====================================================
+// SEARCH CLOSE — клик вне полоски поиска
+// =====================================================
+
+document.addEventListener(
+    "click",
+    function (event) {
+        if (
+            !mobileSearchOverlay ||
+            !mobileSearchOverlay.classList.contains("active")
+        ) {
+            return;
+        }
+
+        // Не закрываем, если клик по самой полоске или по кнопке поиска
+        const clickedInsideSearch =
+            event.target.closest &&
+            event.target.closest(".mobile-search-overlay");
+
+        const clickedSearchBtn =
+            event.target.closest &&
+            event.target.closest("#mobile-search-btn");
+
+        if (!clickedInsideSearch && !clickedSearchBtn) {
+            closeMobileSearch();
+        }
+    }
+);
 
 // =========================================================================
 // СЛОВАРЬ НАЗВАНИЙ
@@ -2178,286 +2209,105 @@ if (cartTotalLabel) {
 // =========================================================================
 // СМЕНА ЯЗЫКА
 // =========================================================================
- 
-const langSelect =
-    document.getElementById(
-        "language-select"
-    );
- 
-if (langSelect) {
- 
-    langSelect.addEventListener(
-        "change",
-        (e) => {
- 
-            activeLang =
-                e.target.value;
- 
-            const d =
-                dictionary[activeLang];
- 
-            document.getElementById(
-                "lang-nav-catalog"
-            ).textContent =
-                d.navCatalog;
- 
-            document.getElementById(
-                "lang-nav-collections"
-            ).textContent =
-                d.navCollections;
- 
-            document.getElementById(
-                "lang-nav-contacts"
-            ).textContent =
-                d.navContacts;
- 
-            document.getElementById(
-                "search-input"
-            ).placeholder =
-                d.searchPlh;
- 
-            const heroEyebrowEl =
-                document.getElementById(
-                    "lang-hero-eyebrow"
-                );
- 
-            if (heroEyebrowEl) {
- 
-                heroEyebrowEl.textContent =
-                    d.heroEyebrow;
- 
-            }
- 
-            document.getElementById(
-                "lang-hero-subtitle"
-            ).innerHTML =
-                d.heroSubtitle;
- 
-            document.getElementById(
-                "lang-hero-btn"
-            ).textContent =
-                d.heroBtn;
- 
-            document.getElementById(
-                "lang-catalog-title"
-            ).textContent =
-                d.catalogTitle;
- 
-            const catalogEyebrowEl =
-                document.getElementById(
-                    "lang-catalog-eyebrow"
-                );
- 
-            if (catalogEyebrowEl) {
- 
-                catalogEyebrowEl.textContent =
-                    d.catalogEyebrow;
- 
-            }
- 
-            document
-                .querySelectorAll(
-                    ".product-card"
-                )
-                .forEach(card => {
- 
-                    const pId =
-                        card.getAttribute(
-                            "data-product-id"
-                        );
- 
-                    if (
-                        pId &&
-                        productNames[pId]
-                    ) {
- 
-                        card.querySelector(
-                            ".lang-p-title"
-                        ).textContent =
-                            productNames[pId][
-                                activeLang
-                            ];
- 
-                    }
- 
-                });
- 
-            document
-                .querySelectorAll(
-                    ".lang-label-color"
-                )
-                .forEach(el => {
- 
-                    el.textContent =
-                        d.lblColor;
- 
-                });
- 
-            document
-                .querySelectorAll(
-                    ".lang-label-size"
-                )
-                .forEach(el => {
- 
-                    el.textContent =
-                        d.lblSize;
- 
-                });
- 
-            document
-                .querySelectorAll(
-                    ".lang-label-fit"
-                )
-                .forEach(el => {
- 
-                    el.textContent =
-                        d.lblFit;
- 
-                });
- 
-            document
-                .querySelectorAll(
-                    ".lang-color-black"
-                )
-                .forEach(el => {
- 
-                    el.textContent =
-                        d.clrBlack;
- 
-                });
- 
-            document
-                .querySelectorAll(
-                    ".lang-color-white"
-                )
-                .forEach(el => {
- 
-                    el.textContent =
-                        d.clrWhite;
- 
-                });
- 
-            document
-                .querySelectorAll(
-                    ".lang-fit-slim"
-                )
-                .forEach(el => {
- 
-                    el.textContent =
-                        d.fitSlim;
- 
-                });
- 
-            document
-                .querySelectorAll(
-                    ".lang-fit-regular"
-                )
-                .forEach(el => {
- 
-                    el.textContent =
-                        d.fitRegular;
- 
-                });
- 
-            document
-                .querySelectorAll(
-                    ".lang-fit-relaxed"
-                )
-                .forEach(el => {
- 
-                    el.textContent =
-                        d.fitRelaxed;
- 
-                });
- 
-            document
-                .querySelectorAll(
-                    ".lang-fit-loose"
-                )
-                .forEach(el => {
- 
-                    el.textContent =
-                        d.fitLoose;
- 
-                });
- 
-            document
-                .querySelectorAll(
-                    ".lang-fit-oversize"
-                )
-                .forEach(el => {
- 
-                    el.textContent =
-                        d.fitOversize;
- 
-                });
- 
-            document
-                .querySelectorAll(
-                    ".lang-btn-add"
-                )
-                .forEach(el => {
- 
-                    el.textContent =
-                        d.btnAdd;
- 
-                });
- 
-            document
-                .querySelectorAll(
-                    ".lang-btn-buy"
-                )
-                .forEach(el => {
- 
-                    el.textContent =
-                        d.btnBuy;
- 
-                });
- 
-            const scrollCueEl =
-                document.getElementById(
-                    "lang-scroll-cue"
-                );
- 
-            if (scrollCueEl) {
- 
-                scrollCueEl.textContent =
-                    d.scrollCue;
- 
-            }
- 
-            document.getElementById(
-                "lang-cart-checkout"
-            ).textContent =
-                d.cartCheckout;
- 
-            document.getElementById(
-                "lang-cart-clear"
-            ).textContent =
-                d.cartClear;
- 
-            applyCartTranslation();
- 
-            document.getElementById(
-                "lang-footer-about"
-            ).textContent =
-                d.ftAbout;
- 
-            document.getElementById(
-                "lang-footer-contacts-title"
-            ).textContent =
-                d.ftContacts;
- 
-            document.getElementById(
-                "lang-footer-socials"
-            ).textContent =
-                d.ftSocials;
- 
+
+function applyLanguage(lang) {
+    if (!["ru", "en", "et"].includes(lang)) return;
+
+    activeLang = lang;
+
+    const d = dictionary[activeLang];
+    if (!d) return;
+
+    // Синхронизируем оба селекта
+    const desktopSelect = document.getElementById("language-select");
+    const mobileSelect = document.getElementById("mobile-language-select");
+    if (desktopSelect && desktopSelect.value !== lang) desktopSelect.value = lang;
+    if (mobileSelect && mobileSelect.value !== lang) mobileSelect.value = lang;
+
+    const setText = (id, value) => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = value;
+    };
+
+    setText("lang-nav-catalog", d.navCatalog);
+    setText("lang-nav-collections", d.navCollections);
+    setText("lang-nav-contacts", d.navContacts);
+
+    // Мобильное боковое меню
+    setText("lang-mobile-catalog", d.navCatalog);
+    setText("lang-mobile-about", d.navCollections);
+    setText("lang-mobile-contacts", d.navContacts);
+
+    const searchInputEl = document.getElementById("search-input");
+    if (searchInputEl) searchInputEl.placeholder = d.searchPlh;
+
+    const mobileSearchInputEl = document.getElementById("mobile-search-input");
+    if (mobileSearchInputEl) mobileSearchInputEl.placeholder = d.searchPlh;
+
+    const heroEyebrowEl = document.getElementById("lang-hero-eyebrow");
+    if (heroEyebrowEl) heroEyebrowEl.textContent = d.heroEyebrow;
+
+    const heroSubtitleEl = document.getElementById("lang-hero-subtitle");
+    if (heroSubtitleEl) heroSubtitleEl.innerHTML = d.heroSubtitle;
+
+    setText("lang-hero-btn", d.heroBtn);
+    setText("lang-catalog-title", d.catalogTitle);
+
+    const catalogEyebrowEl = document.getElementById("lang-catalog-eyebrow");
+    if (catalogEyebrowEl) catalogEyebrowEl.textContent = d.catalogEyebrow;
+
+    const collectionsEl = document.getElementById("collections");
+    if (collectionsEl) collectionsEl.textContent = d.collections || d.catalogEyebrow;
+
+    document.querySelectorAll(".product-card").forEach(card => {
+        const pId = card.getAttribute("data-product-id");
+        if (pId && productNames[pId]) {
+            const titleEl = card.querySelector(".lang-p-title");
+            if (titleEl) titleEl.textContent = productNames[pId][activeLang];
         }
-    );
- 
+    });
+
+    document.querySelectorAll(".lang-label-color").forEach(el => { el.textContent = d.lblColor; });
+    document.querySelectorAll(".lang-label-size").forEach(el => { el.textContent = d.lblSize; });
+    document.querySelectorAll(".lang-label-fit").forEach(el => { el.textContent = d.lblFit; });
+    document.querySelectorAll(".lang-color-black").forEach(el => { el.textContent = d.clrBlack; });
+    document.querySelectorAll(".lang-color-white").forEach(el => { el.textContent = d.clrWhite; });
+    document.querySelectorAll(".lang-fit-slim").forEach(el => { el.textContent = d.fitSlim; });
+    document.querySelectorAll(".lang-fit-regular").forEach(el => { el.textContent = d.fitRegular; });
+    document.querySelectorAll(".lang-fit-relaxed").forEach(el => { el.textContent = d.fitRelaxed; });
+    document.querySelectorAll(".lang-fit-loose").forEach(el => { el.textContent = d.fitLoose; });
+    document.querySelectorAll(".lang-fit-oversize").forEach(el => { el.textContent = d.fitOversize; });
+    document.querySelectorAll(".lang-btn-add").forEach(el => { el.textContent = d.btnAdd; });
+    document.querySelectorAll(".lang-btn-buy").forEach(el => { el.textContent = d.btnBuy; });
+
+    const scrollCueEl = document.getElementById("lang-scroll-cue");
+    if (scrollCueEl) scrollCueEl.textContent = d.scrollCue;
+
+    setText("lang-cart-checkout", d.cartCheckout);
+    setText("lang-cart-clear", d.cartClear);
+
+    applyCartTranslation();
+
+    setText("lang-footer-about", d.ftAbout);
+    setText("lang-footer-contacts-title", d.ftContacts);
+    setText("lang-footer-socials", d.ftSocials);
 }
- 
+
+const langSelect = document.getElementById("language-select");
+const mobileLangSelect = document.getElementById("mobile-language-select");
+
+if (langSelect) {
+    langSelect.addEventListener("change", (e) => {
+        applyLanguage(e.target.value);
+    });
+}
+
+if (mobileLangSelect) {
+    mobileLangSelect.addEventListener("change", (e) => {
+        applyLanguage(e.target.value);
+    });
+}
+
 // =========================================================================
 // УСТАНОВКА ЯЗЫКА БРАУЗЕРА ПРИ ЗАГРУЗКЕ
 // =========================================================================
@@ -2470,7 +2320,6 @@ if (langSelect) {
     langSelect.dispatchEvent(
         new Event("change")
     );
- 
 }
  
 // =========================================================================
@@ -2602,97 +2451,175 @@ if (
     );
  
 }
- 
-
-
-
-
-
-
 
 // =========================================================
-// MOBILE MENU
+// INKTHEORY — MOBILE NAVIGATION
 // =========================================================
 
-function initMobileMenu() {
+(function () {
 
     const mobileMenuBtn =
         document.getElementById("mobile-menu-btn");
 
-    const mobileMenu =
-        document.getElementById("mobile-menu");
+    const mobileSideMenu =
+        document.getElementById("mobile-side-menu");
+
+    const mobileMenuOverlay =
+        document.getElementById("mobile-menu-overlay");
+
+    const mobileSideClose =
+        document.getElementById("mobile-side-close");
 
 
-    // Если элементов нет — ничего не делаем
-    if (!mobileMenuBtn || !mobileMenu) {
-        console.warn(
-            "Mobile menu: элементы #mobile-menu-btn или #mobile-menu не найдены."
-        );
-        return;
-    }
+    const mobileSearchBtn =
+        document.getElementById("mobile-search-btn");
+
+    const mobileSearchOverlay =
+        document.getElementById("mobile-search-overlay");
+
+    const mobileSearchClose =
+        document.getElementById("mobile-search-close");
+
+    const mobileSearchInput =
+        document.getElementById("mobile-search-input");
+
+    const mobileSearchResults =
+        document.getElementById("mobile-search-results");
+
+
+    const mobileCartBtn =
+        document.getElementById("mobile-cart-btn");
+
+    const mobileCartCount =
+        document.getElementById("mobile-cart-count");
 
 
     // =====================================================
-    // ОТКРЫТИЕ / ЗАКРЫТИЕ
+    // CLOSE MENU
     // =====================================================
 
-    mobileMenuBtn.addEventListener("click", function (event) {
+    function closeMobileMenu() {
 
-        event.preventDefault();
-        event.stopPropagation();
+        if (mobileSideMenu) {
+            mobileSideMenu.classList.remove("active");
+        }
 
+        if (mobileMenuOverlay) {
+            mobileMenuOverlay.classList.remove("active");
+        }
 
-        const isOpen =
-            mobileMenu.classList.contains("active");
-
-
-        if (isOpen) {
-
-            mobileMenu.classList.remove("active");
-
+        if (mobileMenuBtn) {
             mobileMenuBtn.classList.remove("active");
-
             mobileMenuBtn.setAttribute(
                 "aria-expanded",
                 "false"
             );
+        }
 
-        } else {
+        document.body.classList.remove(
+            "mobile-menu-open"
+        );
+    }
 
-            mobileMenu.classList.add("active");
+    // =====================================================
+    // OPEN MENU
+    // =====================================================
 
+    function openMobileMenu() {
+
+        closeMobileSearch();
+
+        if (
+            typeof closeCart === "function" &&
+            cartWindow &&
+            cartWindow.classList.contains("active")
+        ) {
+            closeCart();
+        }
+
+
+        if (mobileSideMenu) {
+            mobileSideMenu.classList.add("active");
+        }
+
+        if (mobileMenuOverlay) {
+            mobileMenuOverlay.classList.add("active");
+        }
+
+        if (mobileMenuBtn) {
             mobileMenuBtn.classList.add("active");
-
             mobileMenuBtn.setAttribute(
                 "aria-expanded",
                 "true"
             );
-
         }
 
-    });
+        document.body.classList.add(
+            "mobile-menu-open"
+        );
+    }
 
+    if (mobileMenuBtn) {
 
-    // =====================================================
-    // ЗАКРЫТИЕ ПРИ НАЖАТИИ НА ССЫЛКУ
-    // =====================================================
+        mobileMenuBtn.addEventListener(
+            "click",
+            function (event) {
 
-    mobileMenu
-        .querySelectorAll("a")
+                event.preventDefault();
+                event.stopPropagation();
+
+                if (
+                    mobileSideMenu &&
+                    mobileSideMenu.classList.contains("active")
+                ) {
+                    closeMobileMenu();
+                } else {
+                    openMobileMenu();
+                }
+
+            }
+        );
+
+    }
+
+    if (mobileSideClose) {
+
+        mobileSideClose.addEventListener(
+            "click",
+            function (event) {
+
+                event.preventDefault();
+                event.stopPropagation();
+
+                closeMobileMenu();
+
+            }
+        );
+
+    }
+
+    if (mobileMenuOverlay) {
+
+        mobileMenuOverlay.addEventListener(
+            "click",
+            function () {
+
+                closeMobileMenu();
+
+            }
+        );
+
+    }
+
+    document
+        .querySelectorAll(".mobile-side-links a")
         .forEach(function (link) {
 
             link.addEventListener(
                 "click",
                 function () {
 
-                    mobileMenu.classList.remove("active");
-
-                    mobileMenuBtn.classList.remove("active");
-
-                    mobileMenuBtn.setAttribute(
-                        "aria-expanded",
-                        "false"
-                    );
+                    closeMobileMenu();
 
                 }
             );
@@ -2700,64 +2627,404 @@ function initMobileMenu() {
         });
 
 
-    // =====================================================
-    // КЛИК СНАРУЖИ
-    // =====================================================
+    function closeMobileSearch() {
 
-    document.addEventListener(
-        "click",
-        function (event) {
+        if (mobileSearchOverlay) {
+            mobileSearchOverlay.classList.remove(
+                "active"
+            );
+        }
+
+        if (mobileSearchResults) {
+            mobileSearchResults.classList.remove(
+                "active"
+            );
+
+            mobileSearchResults.innerHTML = "";
+        }
+
+        if (mobileSearchInput) {
+            mobileSearchInput.value = "";
+        }
+
+        document.body.classList.remove(
+            "mobile-search-open"
+        );
+    }
+
+    function openMobileSearch() {
+    closeMobileMenu();
+
+    if (
+        typeof closeCart === "function" &&
+        cartWindow &&
+        cartWindow.classList.contains("active")
+    ) {
+        closeCart();
+    }
+
+    if (mobileSearchOverlay) {
+
+        mobileSearchOverlay.classList.add(
+            "active"
+        );
+    }
+
+    document.body.classList.add(
+        "mobile-search-open"
+    );
+
+    setTimeout(function () {
+
+        if (mobileSearchInput) {
+            mobileSearchInput.focus();
+        }
+
+    }, 100);
+
+}
+    if (mobileSearchBtn) {
+
+        mobileSearchBtn.addEventListener(
+            "click",
+            function (event) {
+
+                event.preventDefault();
+                event.stopPropagation();
+
+                openMobileSearch();
+
+            }
+        );
+    }
+
+    if (mobileSearchClose) {
+
+        mobileSearchClose.addEventListener(
+            "click",
+            function (event) {
+
+                event.preventDefault();
+                event.stopPropagation();
+
+                closeMobileSearch();
+
+            }
+        );
+
+    }
+
+    function runMobileSearch() {
+
+        if (
+            !mobileSearchInput ||
+            !mobileSearchResults
+        ) {
+            return;
+        }
+
+        const query =
+            mobileSearchInput.value
+                .toLowerCase()
+                .trim();
+
+        const cards =
+            document.querySelectorAll(
+                ".product-card"
+            );
+
+        const matches = [];
+
+
+        cards.forEach(function (card) {
+
+            const titleElement =
+                card.querySelector("h3");
+
+
+            if (!titleElement) {
+                return;
+            }
+
+            const title =
+                titleElement.textContent
+                    .toLowerCase()
+                    .trim();
+
+            const isMatch =
+                !query ||
+                title.includes(query);
+
+
+            // Возвращаем карточки,
+            // если поле очищено
+            card.style.display =
+                isMatch
+                    ? ""
+                    : "none";
+
 
             if (
-                !mobileMenu.classList.contains("active")
+                query &&
+                isMatch
             ) {
+
+                matches.push(card);
+
+            }
+
+        });
+
+        if (!query) {
+
+            mobileSearchResults.classList.remove(
+                "active"
+            );
+
+            mobileSearchResults.innerHTML = "";
+
+            return;
+
+        }
+
+        if (matches.length === 0) {
+
+            mobileSearchResults.innerHTML = `
+                <div class="mobile-search-no-results">
+                    Ничего не найдено
+                </div>
+            `;
+
+            mobileSearchResults.classList.add(
+                "active"
+            );
+
+            return;
+        }
+
+        mobileSearchResults.innerHTML = "";
+        matches.forEach(function (card) {
+
+            const titleElement =
+                card.querySelector("h3");
+
+
+            const imageElement =
+                card.querySelector(
+                    ".product-image"
+                );
+
+            const title =
+                titleElement
+                    ? titleElement.textContent.trim()
+                    : "Product";
+
+            const image =
+                imageElement
+                    ? imageElement.getAttribute("src")
+                    : "";
+
+            const item =
+                document.createElement("button");
+
+
+            item.type = "button";
+
+            item.className =
+                "mobile-search-result-item";
+
+
+            item.innerHTML = `
+
+                <img
+                    src="${image}"
+                    alt=""
+                >
+
+                <span>
+                    ${escapeHTML(title)}
+                </span>
+
+            `;
+
+            item.addEventListener(
+                "click",
+                function (event) {
+
+                    event.preventDefault();
+                    event.stopPropagation();
+
+                    // Сбрасываем фильтр
+                    cards.forEach(function (otherCard) {
+
+                        otherCard.style.display = "";
+
+                    });
+
+                    closeMobileSearch();
+
+                    setTimeout(function () {
+
+                        card.scrollIntoView({
+                            behavior: "smooth",
+                            block: "center"
+                        });
+
+                        card.classList.remove(
+                            "search-highlight"
+                        );
+
+                        void card.offsetWidth;
+
+                        card.classList.add(
+                            "search-highlight"
+                        );
+
+                        setTimeout(function () {
+
+                            card.classList.remove(
+                                "search-highlight"
+                            );
+
+                        }, 1600);
+
+                    }, 80);
+
+                }
+            );
+
+
+            mobileSearchResults.appendChild(
+                item
+            );
+
+        });
+
+        mobileSearchResults.classList.add(
+            "active"
+        );
+
+    }
+
+    if (mobileSearchInput) {
+
+        mobileSearchInput.addEventListener(
+            "input",
+            runMobileSearch
+        );
+
+        mobileSearchInput.addEventListener(
+            "keydown",
+            function (event) {
+
+                if (event.key === "Escape") {
+
+                    closeMobileSearch();
+
+                }
+
+            }
+        );
+
+    }
+
+    // =====================================================
+    // MOBILE CART BUTTON
+    // =====================================================
+
+    if (mobileCartBtn) {
+
+        mobileCartBtn.addEventListener(
+            "click",
+            function (event) {
+
+                event.preventDefault();
+                event.stopPropagation();
+
+                closeMobileMenu();
+                closeMobileSearch();
+
+                if (
+                    typeof openCart === "function" &&
+                    typeof closeCart === "function" &&
+                    cartWindow
+                ) {
+
+                    if (
+                        cartWindow.classList.contains(
+                            "active"
+                        )
+                    ) {
+
+                        closeCart();
+
+                    } else {
+
+                        openCart();
+
+                    }
+
+                }
+
+            }
+        );
+
+    }
+
+    function updateMobileCartCount() {
+
+        if (!mobileCartCount) {
+            return;
+        }
+
+        if (
+            typeof cartUnits === "function"
+        ) {
+
+            mobileCartCount.textContent =
+                cartUnits();
+
+        }
+
+    }
+
+    updateMobileCartCount();
+
+    if (cartCounter) {
+
+        const observer =
+            new MutationObserver(function () {
+
+                updateMobileCartCount();
+
+            });
+
+        observer.observe(
+            cartCounter,
+            {
+                childList: true,
+                characterData: true,
+                subtree: true
+            }
+        );
+
+    }
+
+    document.addEventListener(
+        "keydown",
+        function (event) {
+
+            if (event.key !== "Escape") {
                 return;
             }
 
 
-            const clickedInsideMenu =
-                mobileMenu.contains(event.target);
-
-
-            const clickedButton =
-                mobileMenuBtn.contains(event.target);
-
-
-            if (
-                !clickedInsideMenu &&
-                !clickedButton
-            ) {
-
-                mobileMenu.classList.remove("active");
-
-                mobileMenuBtn.classList.remove("active");
-
-                mobileMenuBtn.setAttribute(
-                    "aria-expanded",
-                    "false"
-                );
-
-            }
+            closeMobileMenu();
+            closeMobileSearch();
 
         }
     );
 
-}
+})();
 
 
-// =========================================================
-// ЗАПУСК
-// =========================================================
-
-if (document.readyState === "loading") {
-
-    document.addEventListener(
-        "DOMContentLoaded",
-        initMobileMenu
-    );
-
-} else {
-
-    initMobileMenu();
-
-}

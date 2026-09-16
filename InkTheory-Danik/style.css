@@ -1942,280 +1942,534 @@ a {
     transform: translateY(0);
 }
 
-/* =========================================================================
-   АДАПТИВНОСТЬ
-   ========================================================================= */
-
-@media (max-width: 1024px) {
-    .main-title { font-size: 76px; }
-    .catalog-title { font-size: 44px; }
-    .nav-links { gap: 24px; }
-}
-
-@media (max-width: 768px) {
-    .main-header { padding: 14px 3vw 0; }
-
-    .nav-inner {
-        height: auto;
-        flex-direction: column;
-        gap: 14px;
-        padding: 16px 20px;
-        border-radius: 16px;
-    }
-
-    .nav-links {
-        gap: 18px;
-        flex-wrap: wrap;
-        justify-content: center;
-    }
-
-    .nav-links a { font-size: 13px; }
-
-    .header-icons {
-        width: 100%;
-        justify-content: center;
-        flex-wrap: wrap;
-        gap: 14px;
-    }
-
-    #search-input { width: 90px; }
-    #search-input:focus { width: 120px; }
-
-    .search-results {
-        left: 50%;
-        transform: translateX(-50%) translateY(-6px);
-        width: 240px;
-    }
-
-    .search-results.active {
-        transform: translateX(-50%) translateY(0);
-    }
-
-    .cart-window {
-        right: auto;
-        left: 50%;
-        transform: translateX(-50%);
-    }
-
-    @keyframes cartIn {
-        to { opacity: 1; transform: translateX(-50%) translateY(0); }
-    }
-
-    .hero {
-        padding: 0 6vw;
-        text-align: center;
-        justify-content: center;
-    }
-
-    .hero-content { margin: 130px auto 60px; }
-
-    .ink-stroke { margin-left: auto; margin-right: auto; }
-
-    .main-title { font-size: 52px; }
-    .main-subtitle { font-size: 17px; }
-    .scroll-cue { display: none; }
-
-    .catalog { padding: 90px 4vw 60px; }
-    .catalog-title { font-size: 34px; }
-
-    .products-grid {
-        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-        gap: 20px;
-    }
-
-    .footer { padding: 60px 6% 30px; }
-    .footer-content { flex-direction: column; align-items: center; text-align: center; gap: 34px; }
-    .footer-about, .footer-contacts { max-width: 100%; }
-    .social-icons { justify-content: center; }
-}
-
-@media (max-width: 480px) {
-    .main-title { font-size: 40px; }
-    .products-grid { grid-template-columns: 1fr; }
-}
-
-/* уважение к reduced-motion */
-@media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after {
-        animation-duration: 0.001ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.001ms !important;
-        scroll-behavior: auto !important;
-    }
-}
-
-/* =========================================================================
-   МОДАЛЬНОЕ ОКНО БЫСТРОЙ ОПЛАТЫ (задаётся через JS, стили-подложка)
-   ========================================================================= */
-#paypal-fast-modal input,
-#paypal-fast-modal textarea,
-#paypal-fast-modal select {
-    font-family: 'Jura', sans-serif;
-}
-
-/* =========================================================================
-   КАРТА ВЫБОРА МЕСТА ДОСТАВКИ (внутри модального окна оформления заказа)
-   ========================================================================= */
-
-.delivery-map-block {
-    margin-top: 4px;
-}
-
-.delivery-map-links {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-bottom: 8px;
-}
-
-.delivery-map-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 12px;
-    padding: 7px 12px;
-    border-radius: 999px;
-    border: 1px solid rgba(201,162,75,0.35);
-    color: #e6c583;
-    background: rgba(201,162,75,0.08);
-    text-decoration: none;
-    transition: background 0.2s, transform 0.2s;
-}
-
-.delivery-map-link:hover {
-    background: rgba(201,162,75,0.18);
-    transform: translateY(-1px);
-}
-
-.delivery-map-search {
-    display: flex;
-    gap: 6px;
-    margin-bottom: 8px;
-}
-
-.delivery-map-search input {
-    flex: 1;
-    padding: 9px 10px;
-    background: #1d1922;
-    border: 1px solid rgba(201,162,75,0.2);
-    color: #f2ede2;
-    border-radius: 8px;
-    font-size: 13px;
-}
-
-.delivery-map-search button {
-    padding: 0 14px;
-    border: 1px solid rgba(201,162,75,0.35);
-    background: rgba(201,162,75,0.12);
-    color: #e6c583;
-    border-radius: 8px;
-    font-size: 13px;
-    cursor: pointer;
-    white-space: nowrap;
-}
-
-.delivery-map-search button:hover {
-    background: rgba(201,162,75,0.22);
-}
-
-.delivery-map-canvas {
-    width: 100%;
-    height: 190px;
-    border-radius: 10px;
-    overflow: hidden;
-    border: 1px solid rgba(201,162,75,0.2);
-    background: #1d1922;
-}
-
-.delivery-map-hint {
-    font-size: 11.5px;
-    color: #948c7f;
-    margin-top: 6px;
-    line-height: 1.4;
-}
-
-/* тёмная тема для попапов Leaflet, чтобы они не выбивались из дизайна */
-.leaflet-popup-content-wrapper,
-.leaflet-popup-tip {
-    background: #17141b;
-    color: #f2ede2;
-}
-
-.leaflet-container a.leaflet-popup-close-button {
-    color: #948c7f;
-}
-
-
-/* ===== СТРЕЛКИ КАРУСЕЛИ НА ТЕЛЕФОНАХ ===== */
-@media (max-width: 768px) {
-    .carousel-btn {
-        display: none !important;
-    }
-}
-
-
-
-
-
+/* =========================================================
+   INKTHEORY — MOBILE HEADER / MENU / SEARCH
+   FINAL FIX (v2)
+   ========================================================= */
 
 
 /* =========================================================
-   FIX MOBILE MENU BUTTON
+   DESKTOP — MOBILE ELEMENTS HIDDEN
+   ========================================================= */
+
+.mobile-header-bar,
+.mobile-search-overlay,
+.mobile-menu-overlay,
+.mobile-side-menu {
+    display: none;
+}
+
+
+/* =========================================================
+   MOBILE
    ========================================================= */
 
 @media (max-width: 700px) {
 
-    .mobile-header-bar {
-        position: relative !important;
-        z-index: 100002 !important;
+    /* -----------------------------------------------------
+       MAIN HEADER
+       ----------------------------------------------------- */
 
-        /* Сам контейнер не перехватывает клики */
-        pointer-events: none !important;
+    .main-header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        padding: 10px 12px 0;
+        z-index: 10000;
+        pointer-events: none;
     }
 
+    .nav-inner {
+        position: relative;
+        width: 100%;
+        max-width: none;
+        height: 58px;
+        padding: 0 12px;
+        margin: 0;
+        display: flex;
+        align-items: center;
+        border-radius: 15px;
+        pointer-events: auto;
+    }
+
+    /* Скрываем десктопные элементы */
+    .nav-inner > .logo,
+    .nav-inner > .nav-links,
+    .nav-inner > .header-icons {
+        display: none !important;
+    }
+
+
+    /* -----------------------------------------------------
+       MOBILE HEADER BAR
+       Размещение: [Гамбургер (слева)] --- [Логотип (центр)] --- [Поиск + Корзина (справа)]
+       ----------------------------------------------------- */
+.mobile-header-bar {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        position: relative !important;
+        width: 100% !important;
+        height: 100% !important;
+    }
+
+    /* --- СЛЕВА: ГАМБУРГЕР --- */
     .mobile-menu-btn {
         position: relative !important;
-        z-index: 100010 !important;
-
-        pointer-events: auto !important;
-        cursor: pointer !important;
-
+        left: auto !important;
+        top: auto !important;
+        transform: none !important;
+        width: 40px;
+        height: 40px;
+        padding: 0;
+        border: 0;
+        border-radius: 10px;
+        background: transparent;
+        color: var(--text);
+        cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+        -webkit-tap-highlight-color: transparent;
         touch-action: manipulation;
+        z-index: 3;
+        flex-shrink: 0;
+        margin: 0 !important;
+    }
+
+    .mobile-menu-btn span {
+        display: block;
+        width: 18px;
+        height: 1.6px;
+        background: var(--text);
+        border-radius: 999px;
+        transition: transform .25s var(--ease), opacity .2s ease;
+    }
+
+    .mobile-menu-btn.active span:nth-child(1) {
+        transform: translateY(6.6px) rotate(45deg);
+    }
+
+    .mobile-menu-btn.active span:nth-child(2) {
+        opacity: 0;
+    }
+
+    .mobile-menu-btn.active span:nth-child(3) {
+        transform: translateY(-6.6px) rotate(-45deg);
+    }
+
+    .mobile-menu-btn:active {
+        background: rgba(201, 162, 75, .12);
+        transform: scale(.94) !important;
+    }
+
+    /* --- ПО ЦЕНТРУ: ЛОГОТИП --- */
+    .mobile-logo {
+        position: absolute !important;
+        left: 50% !important;
+        top: 50% !important;
+        transform: translate(-50%, -50%) !important;
+        display: inline-block;
+        font-family: 'Fraunces', serif;
+        font-size: 20px;
+        font-weight: 500;
+        color: var(--text);
+        letter-spacing: .01em;
+        white-space: nowrap;
+        pointer-events: auto;
+        z-index: 2;
+        margin: 0 !important;
+    }
+
+    .mobile-logo em {
+        font-style: italic;
+        color: var(--gold);
+        font-weight: 400;
+    }
+
+    /* --- СПРАВА: ЯЗЫК + ПОИСК + КОРЗИНА --- */
+    .mobile-header-actions {
+        position: relative !important;
+        right: auto !important;
+        top: auto !important;
+        transform: none !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: flex-end !important;
+        gap: 4px;
+        margin-left: auto !important;
+        z-index: 3;
+        flex-shrink: 0;
+    }
+
+    /* Мобильный селект языка */
+    .mobile-language-select {
+        font-size: 11px;
+        letter-spacing: 0.04em;
+        border: 1px solid var(--border);
+        border-radius: 999px;
+        padding: 6px 10px;
+        background: transparent;
+        color: var(--text);
+        cursor: pointer;
+        outline: none;
+        appearance: none;
+        -webkit-appearance: none;
+        -webkit-tap-highlight-color: transparent;
+        max-width: 58px;
+        text-align: center;
+        font-family: 'Jura', sans-serif;
+        flex-shrink: 0;
+    }
+
+    .mobile-language-select option {
+        background: var(--surface);
+        color: var(--text);
+    }
+
+    .mobile-language-select:focus {
+        border-color: var(--gold);
+    }
+
+    .mobile-action-btn {
+        position: relative;
+        width: 40px;
+        height: 40px;
+        padding: 0;
+        border: 0;
+        border-radius: 10px;
+        background: transparent;
+        color: var(--text);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        -webkit-tap-highlight-color: transparent;
+        touch-action: manipulation;
+        flex-shrink: 0;
+    }
+
+    .mobile-action-btn img {
+        width: 19px;
+        height: 19px;
+        object-fit: contain;
+        filter: invert(1);
+        opacity: .9;
+        pointer-events: none;
+    }
+
+    .mobile-action-btn:active {
+        background: rgba(201, 162, 75, .12);
+        transform: scale(.94);
+    }
+
+    .mobile-cart-count {
+        position: absolute;
+        top: 3px;
+        right: 2px;
+        min-width: 16px;
+        height: 16px;
+        padding: 0 4px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 999px;
+        background: var(--gold);
+        color: #0b0a0d;
+        font-family: 'Jura', sans-serif;
+        font-size: 9px;
+        font-weight: 700;
+        line-height: 1;
+        pointer-events: none;
+    }
+
+    /* =====================================================
+       MOBILE SEARCH — ПОПОЛЗАЮЩАЯ ПЛАШКА ПОД ШАПКОЙ
+       ===================================================== */
+
+   .mobile-search-overlay {
+    position: fixed;
+    top: 72px;
+    left: 12px;
+    right: 12px;
+    bottom: auto;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    padding: 0;
+    background: transparent;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity .22s ease, transform .22s ease, visibility .22s ease;
+    transform: translateY(-6px);
+}
+
+.mobile-search-overlay.active {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateY(0);
+}
+
+.mobile-search-box {
+    position: relative;
+    width: 100%;
+    background: var(--surface);
+    border: none;
+    box-shadow: 0 10px 28px rgba(0, 0, 0, .4);
+    padding: 10px;
+    border-radius: 14px;
+}
+
+.mobile-search-input-wrap {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 42px;
+    padding: 0 12px;
+    gap: 10px;
+    border: none;
+    border-radius: 10px;
+    background: var(--surface-2, #1d1922);
+}
+
+.mobile-search-input-wrap img {
+    width: 16px;
+    height: 16px;
+    filter: invert(1);
+    opacity: .55;
+    flex-shrink: 0;
+}
+
+#mobile-search-input {
+    width: 100%;
+    min-width: 0;
+    padding: 0;
+    border: 0;
+    outline: none;
+    background: transparent;
+    color: var(--text);
+    font-family: 'Jura', sans-serif;
+    font-size: 16px;
+}
+
+#mobile-search-input::placeholder {
+    color: var(--text-muted);
+    font-size: 14px;
+}
+
+.mobile-search-results {
+    width: 100%;
+    max-height: 45vh;
+    overflow-y: auto;
+    margin-top: 8px;
+    padding: 4px;
+    border: none;
+    border-radius: 10px;
+    background: transparent;
+    display: none;
+    -webkit-overflow-scrolling: touch;
+}
+
+.mobile-search-results.active {
+    display: block;
+}
+
+.mobile-search-result-item {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 10px;
+    border: 0;
+    border-radius: 8px;
+    background: transparent;
+    color: var(--text);
+    font-family: 'Jura', sans-serif;
+    font-size: 14px;
+    text-align: left;
+    cursor: pointer;
+}
+
+.mobile-search-result-item:active {
+    background: var(--surface-2);
+}
+
+.mobile-search-result-item img {
+    width: 34px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 6px;
+    background: var(--surface-2);
+    flex-shrink: 0;
+}
+
+.mobile-search-result-item span {
+    color: var(--gold-bright);
+}
+
+.mobile-search-no-results {
+    padding: 12px;
+    color: var(--text-muted);
+    font-size: 13px;
+    text-align: center;
+}
+
+    /* =====================================================
+       MOBILE SIDE MENU
+       ===================================================== */
+
+    .mobile-menu-overlay {
+        position: fixed;
+        inset: 0;
+        z-index: 100200;
+        display: block;
+        background: rgba(0, 0, 0, .5);
+        backdrop-filter: blur(3px);
+        -webkit-backdrop-filter: blur(3px);
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transition: opacity .25s ease, visibility .25s ease;
+    }
+
+    .mobile-menu-overlay.active {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+    }
+
+    .mobile-side-menu {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: min(82vw, 320px);
+        height: 100dvh;
+        display: flex;
+        flex-direction: column;
+        z-index: 100300;
+        padding:
+            max(18px, env(safe-area-inset-top))
+            18px
+            24px;
+        background: var(--surface);
+        border-right: 1px solid var(--border);
+        box-shadow: 15px 0 50px rgba(0, 0, 0, .45);
+        transform: translateX(-105%);
+        transition: transform .3s var(--ease);
+        visibility: hidden;
+        pointer-events: none;
+    }
+
+    .mobile-side-menu.active {
+        transform: translateX(0);
+        visibility: visible;
+        pointer-events: auto;
+    }
+
+    .mobile-side-menu-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        min-height: 44px;
+        padding-bottom: 14px;
+        border-bottom: 1px solid var(--border);
+    }
+
+    .mobile-side-title {
+        font-family: 'Fraunces', serif;
+        font-size: 20px;
+        color: var(--gold-bright);
+    }
+
+    .mobile-side-close {
+        width: 38px;
+        height: 38px;
+        padding: 0;
+        border: 0;
+        border-radius: 10px;
+        background: transparent;
+        color: var(--text-muted);
+        font-size: 30px;
+        line-height: 1;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         -webkit-tap-highlight-color: transparent;
     }
 
-    .mobile-logo {
-        pointer-events: auto !important;
+    .mobile-side-close:active {
+        background: var(--surface-2);
+        color: var(--text);
     }
 
-    /* Корзина должна быть кликабельной */
-    .header-icons {
-        position: absolute !important;
-        z-index: 100005 !important;
-        pointer-events: auto !important;
+    .mobile-side-links {
+        display: flex;
+        flex-direction: column;
+        margin-top: 16px;
+        gap: 4px;
+        flex: 1;
+        overflow-y: auto;
     }
 
-    .cart-wrapper {
-        position: relative !important;
-        z-index: 100006 !important;
-        pointer-events: auto !important;
+    .mobile-side-links a {
+        display: flex;
+        align-items: center;
+        min-height: 50px;
+        padding: 0 14px;
+        border-radius: 10px;
+        color: var(--text);
+        font-size: 15px;
+        letter-spacing: .05em;
+        text-transform: uppercase;
+        transition: background .2s ease, color .2s ease;
     }
 
-    .cart-trigger {
-        position: relative !important;
-        z-index: 100007 !important;
-        pointer-events: auto !important;
-        cursor: pointer !important;
-        touch-action: manipulation;
+    .mobile-side-links a:active {
+        background: var(--surface-2);
+        color: var(--gold-bright);
     }
 
-    /* Само меню выше всех элементов шапки */
-    .mobile-menu {
-        z-index: 100020 !important;
-        pointer-events: auto;
+
+    /* =====================================================
+       BODY LOCK
+       ===================================================== */
+
+    body.mobile-menu-open,
+    body.mobile-search-open {
+        overflow: hidden;
     }
 
-    .mobile-menu.active {
-        pointer-events: auto;
+
+    /* =====================================================
+       CATALOG OFFSET
+       ===================================================== */
+
+    #catalog {
+        scroll-margin-top: 80px;
+    }
+}
+
+@media (max-width: 360px) {
+    .mobile-language-select {
+        font-size: 10px;
+        padding: 5px 8px;
+        max-width: 52px;
+    }
+
+    .mobile-header-actions {
+        gap: 2px;
+    }
+
+    .mobile-action-btn {
+        width: 36px;
+        height: 36px;
     }
 }
