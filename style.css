@@ -176,7 +176,7 @@ a {
 .search-results {
     display: none;
     position: absolute;
-    top: calc(100% + 12px);
+    top: calc(100% + 24px);
     left: 0;
     width: 260px;
     background: var(--surface);
@@ -683,8 +683,8 @@ a {
 .remove-item {
     flex: 0 0 auto;
 
-    width: 24px;
-    height: 24px;
+    width: 26px;
+    height: 26px;
 
     padding: 0;
 
@@ -696,7 +696,7 @@ a {
     color: #ff3b30;
 
     font-size: 14px;
-    font-weight: 400;
+    font-weight: 700;
     line-height: 1;
 
     cursor: pointer;
@@ -1893,4 +1893,211 @@ a {
 
 .leaflet-container a.leaflet-popup-close-button {
     color: #948c7f;
+}
+
+
+
+
+
+
+
+
+/* =========================================================================
+   FAST CHECKOUT MODAL — переопределение инлайн-стилей из JS
+   ========================================================================= */
+
+/* Затемнение фона под окном (оба варианта: одиночный товар и корзина) */
+#paypal-fast-modal,
+#paypal-cart-modal {
+    background: rgba(6, 5, 8, 0.88) !important;
+    backdrop-filter: blur(4px) !important;
+    -webkit-backdrop-filter: blur(4px) !important;
+}
+
+/* Сама карточка окна (первый и единственный div внутри оверлея) */
+#paypal-fast-modal > div,
+#paypal-cart-modal > div {
+    max-width: 560px !important;  /* было 720px — уменьшили ширину на ПК */
+    width: 92% !important;
+    background: var(--surface) !important;
+    border: 1px solid var(--border-strong) !important;
+    border-radius: 20px !important;
+    padding: 34px 36px !important;
+    box-shadow: var(--shadow-soft) !important;
+}
+
+/* Заголовок товара/заказа */
+#paypal-fast-modal h3,
+#paypal-cart-modal h3 {
+    font-family: 'Fraunces', serif !important;
+    color: var(--text) !important;
+}
+
+/* Кнопка закрытия */
+#closeFastModal,
+#closeCartPayModal {
+    color: var(--text-muted) !important;
+    font-size: 34px !important;   /* было ~28px по умолчанию из инлайн-стиля — увеличили */
+    width: 40px !important;
+    height: 40px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    transition: color 0.2s ease !important;
+}
+
+#closeFastModal:hover,
+#closeCartPayModal:hover {
+    color: var(--gold-bright) !important;
+}
+
+#closeFastModal:hover,
+#closeCartPayModal:hover {
+    color: var(--gold-bright) !important;
+}
+
+/* Поля формы — золотая рамка в фокусе, крупнее отступы */
+#paypal-fast-modal input[type="text"],
+#paypal-fast-modal input[type="email"],
+#paypal-fast-modal input[type="tel"],
+#paypal-fast-modal select,
+#paypal-fast-modal textarea,
+#paypal-cart-modal input[type="text"],
+#paypal-cart-modal input[type="email"],
+#paypal-cart-modal input[type="tel"],
+#paypal-cart-modal select,
+#paypal-cart-modal textarea {
+    padding: 12px 13px !important;
+    border-radius: 9px !important;
+    background: var(--surface-2) !important;
+    border: 1px solid var(--border) !important;
+    transition: border-color 0.25s !important;
+}
+
+#paypal-fast-modal input:focus,
+#paypal-fast-modal select:focus,
+#paypal-fast-modal textarea:focus,
+#paypal-cart-modal input:focus,
+#paypal-cart-modal select:focus,
+#paypal-cart-modal textarea:focus {
+    border-color: var(--gold) !important;
+    outline: none !important;
+}
+
+/* Блок с итоговой суммой */
+#paypal-fast-modal #modalTotalDisplay,
+#paypal-cart-modal #cartModalTotalDisplay {
+    font-size: 28px !important;
+}
+
+/* Кнопка подтверждения */
+#fastSubmitBtn,
+#cartFastSubmitBtn {
+    padding: 14px !important;
+    border-radius: 10px !important;
+    transition: background 0.25s var(--ease), transform 0.2s var(--ease) !important;
+}
+
+#fastSubmitBtn:hover,
+#cartFastSubmitBtn:hover {
+    background: var(--gold-bright) !important;
+    transform: translateY(-1px) !important;
+}
+
+/* =========================================================
+   ПЛАНШЕТ
+   ========================================================= */
+
+@media (max-width: 860px) {
+
+    #paypal-fast-modal > div,
+    #paypal-cart-modal > div {
+        max-width: 94% !important;
+        padding: 26px 22px !important;
+    }
+
+}
+
+/* =========================================================
+   МОБИЛЬНЫЙ — окно на весь экран
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+    #paypal-fast-modal,
+    #paypal-cart-modal {
+        padding: 0 !important;
+        align-items: stretch !important;
+    }
+
+    #paypal-fast-modal > div,
+    #paypal-cart-modal > div {
+        width: 100% !important;
+        max-width: none !important;
+        height: 100% !important;
+        max-height: none !important;
+        border-radius: 0 !important;
+        border: none !important;
+        padding: 22px 18px !important;
+        padding-top: max(56px, env(safe-area-inset-top) + 40px) !important;
+    }
+
+    #closeFastModal,
+    #closeCartPayModal {
+        top: max(14px, env(safe-area-inset-top)) !important;
+    }
+
+}
+
+/* =========================================================================
+   ИСПРАВЛЕНИЕ СТРЕЛКИ У SELECT В ОКНЕ ОФОРМЛЕНИЯ ЗАКАЗА
+   ========================================================================= */
+
+#paypal-fast-modal select,
+#paypal-cart-modal select {
+    appearance: none !important;
+    -webkit-appearance: none !important;
+    -moz-appearance: none !important;
+
+    padding: 12px 38px 12px 13px !important;
+
+    background-color: var(--surface-2) !important;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5 6 6.5 11 1.5' fill='none' stroke='%23f2ede2' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") !important;
+    background-repeat: no-repeat !important;
+    background-position: right 14px center !important;
+    background-size: 12px 8px !important;
+
+    cursor: pointer !important;
+}
+
+
+
+
+
+
+
+@media (max-width: 700px) {
+
+    #paypal-fast-modal > div,
+    #paypal-cart-modal > div {
+        scrollbar-width: thin;
+        scrollbar-color: rgba(201, 162, 75, .45) transparent;
+    }
+
+    #paypal-fast-modal > div::-webkit-scrollbar,
+    #paypal-cart-modal > div::-webkit-scrollbar {
+        width: 4px;
+    }
+
+    #paypal-fast-modal > div::-webkit-scrollbar-thumb,
+    #paypal-cart-modal > div::-webkit-scrollbar-thumb {
+        background: rgba(201, 162, 75, .5);
+        border-radius: 20px;
+        border: none;
+    }
+
+    #paypal-fast-modal > div::-webkit-scrollbar-track,
+    #paypal-cart-modal > div::-webkit-scrollbar-track {
+        background: transparent;
+    }
 }

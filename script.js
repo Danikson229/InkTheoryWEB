@@ -7,13 +7,11 @@ const EMAILJS_PUBLIC_KEY  = "6ck12n75Ku0jwZinW";
 const EMAILJS_SERVICE_ID  = "service_ee9a096";
 const EMAILJS_TEMPLATE_ID = "template_kco6uyf";
 const FORMSUBMIT_URL =
-    "https://formsubmit.co/ajax/lyvero.company@gmail.com";
+   "https://formsubmit.co/lyvero.company@gmail.com"
 
 if (window.emailjs && EMAILJS_PUBLIC_KEY) {
     emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
 }
-
-
 
 function sendCustomerConfirmationEmail(params) {
     if (!window.emailjs || !EMAILJS_PUBLIC_KEY || !EMAILJS_SERVICE_ID || !EMAILJS_TEMPLATE_ID) {
@@ -24,15 +22,6 @@ function sendCustomerConfirmationEmail(params) {
     emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, params).catch(err => {
         console.error('EmailJS error:', err);
     });
-}
-
-
-// Вспомогательная функция для безопасного вывода текста в HTML
-function escapeHTML(str) {
-    if (!str) return '';
-    return str.replace(/[&<>'"]/g,
-        tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag)
-    );
 }
 
 const shippingRates = {
@@ -59,8 +48,8 @@ const carrierLocatorLinks = {
 // =========================================================================
 
 const products = [
-    { id: 'signal-lost', name: 'Signal Lost', price: 1.0, colors: { black: 'images/signal-front.jpg', white: 'images/TODO-new-3-white.png' } },
-    { id: 'no-kings', name: 'No Kings', price: 1.0, colors: { black: 'images/No Kings.jpg', white: 'images/No Kings.png' } },
+    { id: 'signal-lost', name: 'Signal Lost', price: 18.00, colors: { black: 'images/signal-front.jpg', white: 'images/TODO-new-3-white.png' } },
+    { id: 'no-kings', name: 'No Kings', price: 18.00, colors: { black: 'images/No Kings.jpg', white: 'images/No Kings.png' } },
     { id: 'connection', name: 'Connection', price: 16.00, colors: { black: 'images/ConnectionB.jpg', white: 'images/ConnectionW.jpg' } },
     { id: 'time-to-live', name: 'Time ti live', price: 16.00, colors: { black: 'images/Time to liveB.png', white: 'images/Time to liveW.png' } },
     { id: 'never', name: 'Never Give Up', price: 15.00, colors: { black: 'images/Never Give Up.png', white: 'images/Never Give Up.png' } },
@@ -1591,7 +1580,7 @@ const dictionary = {
             "Oversize",
 
         ftAbout:
-            "Мы создаём одежду с уникальными принтами, вдохновлёнными искусством, культурой и современным дизайном.",
+            "Мы используем футболки H&M из 100% хлопка, и качетвенной плотной ткани, обеспечивающей комфорт и долговечность. Печать наносится с помощью высококачественной технологии DTF (Direct to Film), которая позволяет получить яркое и детализированное изображение с высокой стойкостью. ",
 
         ftContacts:
             "Контакты и Социальные сети",
@@ -1763,7 +1752,7 @@ const dictionary = {
             "Oversize",
 
         ftAbout:
-            "We create clothing with unique prints inspired by art, culture, and modern design.",
+           "We use H&M 100% cotton T-shirts made of high-quality, dense fabric that ensures comfort and durability. The print is applied using high-quality DTF (Direct to Film) technology, which delivers a bright, detailed image with exceptional resistance to wear.",
 
         ftContacts:
             "Contacts and Social Networks",
@@ -1929,7 +1918,8 @@ const dictionary = {
             "Oversize",
 
         ftAbout:
-            "Loome unikaalsete printidega rõivaid, mis on inspireeritud kunstist, kultuurist ja kaasegsest disainist.",
+           "Kasutame 100% puuvillaseid H&M T-särke, mis on valmistatud kvaliteetsest ja tihedast kangast, tagades mugavuse ning vastupidavuse. Trükk kantakse peale tipptasemel DTF-tehnoloogiaga (Direct to Film), mis võimaldab saavutada erksa, detailse ja väga kulumiskindla pildi.",
+ 
 
         ftContacts:
             "Kontaktid ja sotsiaalmeedia",
@@ -1998,37 +1988,20 @@ const dictionary = {
             "Andmete salvestamise viga."
 
     }
-
 };
-
-let activeLang = (() => {
-
-    const savedLanguage =
-        localStorage.getItem("inktheory_language");
-
-    if (savedLanguage && dictionary[savedLanguage]) {
-        return savedLanguage;
-    }
-
-    const browserLanguage =
-        (navigator.language || "en").toLowerCase();
-
-    if (browserLanguage.startsWith("ru")) {
-        return "ru";
-    }
-
-    if (browserLanguage.startsWith("et")) {
-        return "et";
-    }
-
-    if (browserLanguage.startsWith("en")) {
-        return "en";
-    }
-
-    // Для остальных языков — английский
-    return "en";
-
-})();
+// =========================================================================
+// АВТОМАТИЧЕСКИЙ ЯЗЫК ПО ЯЗЫКУ БРАУЗЕРА
+// =========================================================================
+ 
+const browserLanguage =
+    (navigator.language || "ru")
+        .toLowerCase()
+        .split("-")[0];
+ 
+let activeLang =
+    ["ru", "en", "et"].includes(browserLanguage)
+        ? browserLanguage
+        : "ru";
 
 // =========================================================================
 // ПЕРЕВОД КОРЗИНЫ
@@ -2467,40 +2440,19 @@ if (langSelect) {
 
 }
 
-
 // =========================================================================
-// АВТОМАТИЧЕСКИЙ ВЫБОР ЯЗЫКА ПО ЯЗЫКУ БРАУЗЕРА
+// УСТАНОВКА ЯЗЫКА БРАУЗЕРА ПРИ ЗАГРУЗКЕ
 // =========================================================================
-
-function getBrowserLanguage() {
-
-    const browserLang =
-        (navigator.language || navigator.userLanguage || "en")
-            .toLowerCase();
-
-    // Русский
-    if (browserLang.startsWith("ru")) {
-        return "ru";
-    }
-
-    // Эстонский
-    if (browserLang.startsWith("et")) {
-        return "et";
-    }
-
-    // Английский
-    if (browserLang.startsWith("en")) {
-        return "en";
-    }
-
-    // Для всех остальных языков используем английский
-    return "en";
+ 
+if (langSelect) {
+ 
+    langSelect.value = activeLang;
+ 
+    // Запускаем существующую систему перевода
+    langSelect.dispatchEvent(
+        new Event("change")
+    );
 }
-
-// Проверяем, выбирал ли пользователь язык раньше
-const savedLanguage =
-    localStorage.getItem("inktheory_language");
-
 
 // =========================================================================
 // BUY NOW
