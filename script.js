@@ -35,8 +35,6 @@ function escapeHTML(str) {
     );
 }
 
-
-// Стоимость доставки
 const shippingRates = {
     "omniva": 2.99,
     "dpd": 2.99,
@@ -118,8 +116,6 @@ function updateCatalogSelection() {
 }
 
 updateCatalogSelection();
-
-
 
 // =========================================================================
 // КАРТА ВЫБОРА МЕСТА ДОСТАВКИ
@@ -317,10 +313,6 @@ const CART_STORAGE_KEY = "inktheory_cart_v3";
 
 let cart = [];
 
-// =========================================================================
-// ЗАГРУЗКА КОРЗИНЫ
-// =========================================================================
-
 try {
     const savedCart = JSON.parse(
         localStorage.getItem(CART_STORAGE_KEY) || "[]"
@@ -350,9 +342,6 @@ const checkoutButton =
     document.getElementById("lang-cart-checkout") ||
     document.querySelector(".checkout-btn");
 
-// =========================================================================
-// СОХРАНЕНИЕ
-// =========================================================================
 
 function saveCart() {
     localStorage.setItem(
@@ -398,11 +387,6 @@ function placeCartWindow() {
 window.addEventListener("resize", placeCartWindow);
 placeCartWindow();
 
-
-
-// =========================================================================
-// ФОРМАТ ЦЕНЫ
-// =========================================================================
 
 function money(value) {
     return Number(value || 0).toFixed(2);
@@ -483,10 +467,6 @@ function getCartProductData(button) {
     };
 }
 
-// =========================================================================
-// УНИКАЛЬНОСТЬ ТОВАРА
-// =========================================================================
-
 function cartItemKey(item) {
     return [item.id, item.color, item.size, item.fit].join("|");
 }
@@ -547,7 +527,6 @@ function addToCart(item) {
     }
 }
 
-
 // =========================================================================
 // АНИМАЦИЯ ИКОНКИ КОРЗИНЫ
 // =========================================================================
@@ -561,7 +540,6 @@ function bumpCartIcon() {
 
     setTimeout(() => cartTrigger.classList.remove("bump"), 400);
 }
-
 
 // =========================================================================
 // КНОПКИ "ДОБАВИТЬ В КОРЗИНУ"
@@ -1048,64 +1026,108 @@ function showMessage(text) {
 // =========================================================================
 // ПРОСТАЯ КАРУСЕЛЬ ФОТО ТОВАРА (разные ракурсы одного цвета)
 // -------------------------------------------------------------------------
-// Источник фото для карусели — атрибуты data-images-black / data-images-white
-// на <img class="product-image">, список путей через запятую.
-// Если список не задан, карусель падает обратно на одиночное фото из
-// data-black / data-white (как раньше) — так старые карточки не ломаются.
-// =========================================================================
 
 function capitalize(str) {
     return str ? str.charAt(0).toUpperCase() + str.slice(1) : str;
 }
-
+ 
 function getCardCurrentColor(card) {
     const colorSelect = card ? card.querySelector('.color-select') : null;
     return colorSelect ? colorSelect.value : 'black';
 }
-
+ 
 function getImageListForColor(image, color) {
     const listAttr = image.dataset['images' + capitalize(color)];
-
+ 
     if (listAttr && listAttr.trim()) {
         return listAttr.split(',').map(s => s.trim()).filter(Boolean);
     }
-
+ 
     const single = image.dataset[color];
     return single ? [single] : [];
 }
-
+ 
 function initCardCarousel(wrap) {
     const image = wrap.querySelector('.product-image');
     const prevBtn = wrap.querySelector('.carousel-prev');
     const nextBtn = wrap.querySelector('.carousel-next');
     const dotsBox = wrap.querySelector('.carousel-dots');
     const card = wrap.closest('.product-card');
-
+ 
     if (!image) return;
-
+ 
     let index = 0;
-
+ 
+    // =========================================================
+    // СВАЙП ПАЛЬЦЕМ НА ТЕЛЕФОНЕ
+    // =========================================================
+ 
+    let touchStartX = 0;
+    let touchStartY = 0;
+    let touchEndX = 0;
+    let touchEndY = 0;
+ 
+    const SWIPE_THRESHOLD = 45;
+ 
+    image.addEventListener('touchstart', (e) => {
+        if (!e.touches || !e.touches.length) return;
+ 
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+    }, { passive: true });
+ 
+ 
+    image.addEventListener('touchend', (e) => {
+        if (!e.changedTouches || !e.changedTouches.length) return;
+ 
+        touchEndX = e.changedTouches[0].clientX;
+        touchEndY = e.changedTouches[0].clientY;
+ 
+        const deltaX = touchEndX - touchStartX;
+        const deltaY = touchEndY - touchStartY;
+ 
+        // Если движение в основном вертикальное —
+        // не переключаем картинку, чтобы не мешать прокрутке страницы
+        if (Math.abs(deltaY) > Math.abs(deltaX)) {
+            return;
+        }
+ 
+        if (Math.abs(deltaX) < SWIPE_THRESHOLD) {
+            return;
+        }
+ 
+        if (deltaX < 0) {
+            index += 1;
+            render();
+        }
+ 
+        if (deltaX > 0) {
+            index -= 1;
+            render();
+        }
+    }, { passive: true });
+ 
     function render() {
         const color = getCardCurrentColor(card);
         let images = getImageListForColor(image, color);
-
+ 
         if (images.length === 0) {
             images = [image.getAttribute('src')];
         }
-
+ 
         if (index >= images.length) index = 0;
         if (index < 0) index = images.length - 1;
-
+ 
         image.src = images[index];
-
+ 
         const showControls = images.length > 1;
-
+ 
         if (prevBtn) prevBtn.style.display = showControls ? '' : 'none';
         if (nextBtn) nextBtn.style.display = showControls ? '' : 'none';
-
+ 
         if (dotsBox) {
             dotsBox.innerHTML = '';
-
+ 
             if (showControls) {
                 images.forEach((_, i) => {
                     const dot = document.createElement('span');
@@ -1120,7 +1142,7 @@ function initCardCarousel(wrap) {
             }
         }
     }
-
+ 
     if (prevBtn) {
         prevBtn.addEventListener('click', (e) => {
             e.stopPropagation();
@@ -1128,7 +1150,7 @@ function initCardCarousel(wrap) {
             render();
         });
     }
-
+ 
     if (nextBtn) {
         nextBtn.addEventListener('click', (e) => {
             e.stopPropagation();
@@ -1136,17 +1158,17 @@ function initCardCarousel(wrap) {
             render();
         });
     }
-
+ 
     // сохраняем ссылку на "сброс" карусели, чтобы вызвать её
     // при смене цвета товара (см. обработчик color-select ниже)
     wrap.__resetCarousel = () => {
         index = 0;
         render();
     };
-
+ 
     render();
 }
-
+ 
 document.querySelectorAll('.product-image-wrap').forEach(initCardCarousel);
 
 // =========================================================================
@@ -1979,7 +2001,34 @@ const dictionary = {
 
 };
 
-let activeLang = "ru";
+let activeLang = (() => {
+
+    const savedLanguage =
+        localStorage.getItem("inktheory_language");
+
+    if (savedLanguage && dictionary[savedLanguage]) {
+        return savedLanguage;
+    }
+
+    const browserLanguage =
+        (navigator.language || "en").toLowerCase();
+
+    if (browserLanguage.startsWith("ru")) {
+        return "ru";
+    }
+
+    if (browserLanguage.startsWith("et")) {
+        return "et";
+    }
+
+    if (browserLanguage.startsWith("en")) {
+        return "en";
+    }
+
+    // Для остальных языков — английский
+    return "en";
+
+})();
 
 // =========================================================================
 // ПЕРЕВОД КОРЗИНЫ
@@ -2417,6 +2466,41 @@ if (langSelect) {
     );
 
 }
+
+
+// =========================================================================
+// АВТОМАТИЧЕСКИЙ ВЫБОР ЯЗЫКА ПО ЯЗЫКУ БРАУЗЕРА
+// =========================================================================
+
+function getBrowserLanguage() {
+
+    const browserLang =
+        (navigator.language || navigator.userLanguage || "en")
+            .toLowerCase();
+
+    // Русский
+    if (browserLang.startsWith("ru")) {
+        return "ru";
+    }
+
+    // Эстонский
+    if (browserLang.startsWith("et")) {
+        return "et";
+    }
+
+    // Английский
+    if (browserLang.startsWith("en")) {
+        return "en";
+    }
+
+    // Для всех остальных языков используем английский
+    return "en";
+}
+
+// Проверяем, выбирал ли пользователь язык раньше
+const savedLanguage =
+    localStorage.getItem("inktheory_language");
+
 
 // =========================================================================
 // BUY NOW
