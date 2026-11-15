@@ -149,6 +149,37 @@ function watch(el, d = 0, v = "") {
   io.observe(el);
 }
 
+/* ===== Message field: auto-growing textarea (declared early so render() can resize it) ===== */
+const form = $("form"), statusEl = $("status"), sendBtn = $("send");
+const ta = form.querySelector("textarea");
+ta.setAttribute("rows", "3");
+ta.setAttribute("enterkeyhint", "enter");
+ta.setAttribute("autocapitalize", "sentences");
+
+function fit() {
+  const max = Math.min(innerHeight * 0.5, 360);   // at most 50% of the screen (matters with the phone keyboard open)
+  ta.style.height = "auto";                        // reset so the field can shrink too
+  const cs = getComputedStyle(ta);
+  const border = cs.boxSizing === "border-box"
+    ? parseFloat(cs.borderTopWidth) + parseFloat(cs.borderBottomWidth) : 0;
+  const h = ta.scrollHeight + border;
+  ta.style.height = Math.min(h, max) + "px";
+  ta.style.overflowY = h > max ? "auto" : "hidden"; // inner scroll only after the limit
+}
+
+ta.addEventListener("input", fit);
+addEventListener("resize", fit);
+addEventListener("orientationchange", () => setTimeout(fit, 200));
+form.addEventListener("reset", () => setTimeout(fit));
+if (document.fonts) document.fonts.ready.then(fit);
+
+/* on phones, bring the field into view once the keyboard opens */
+ta.addEventListener("focus", () => {
+  if (matchMedia("(pointer: coarse)").matches)
+    setTimeout(() => ta.scrollIntoView({ block: "center", behavior: "smooth" }), 300);
+});
+
+/* ===== Render ===== */
 function render() {
   document.documentElement.lang = lang;
   document.title = t("title");
@@ -164,6 +195,7 @@ function render() {
   <h3>${esc(w.title[i])}</h3><p><span class="tag">${t("cat_" + w.cat)}</span> · ${esc(w.desc[i])}</p>
 </a>`).join("");
   grid.querySelectorAll(".work").forEach((el, n) => watch(el, n * 0.1, "zoom"));
+  fit(); // the placeholder text changes with the language, so recalculate the field height
 }
 
 filters.addEventListener("click", (e) => { const b = e.target.closest("button"); if (!b) return; cat = b.dataset.cat; render(); });
@@ -177,7 +209,6 @@ $("y").textContent = new Date().getFullYear();
 render();
 
 /* ===== Contact form: sends an email to lyverostudio@gmail.com via FormSubmit ===== */
-const form = $("form"), statusEl = $("status"), sendBtn = $("send");
 const MAIL_TO = atob("bHl2ZXJvc3R1ZGlvQGdtYWlsLmNvbQ=="); // replace with the FormSubmit hashed ID to hide the address completely
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
@@ -235,7 +266,7 @@ menu.addEventListener("click", (e) => { if (e.target.closest("a")) setMenu(false
 addEventListener("keydown", (e) => { if (e.key === "Escape") setMenu(false); });
 matchMedia("(min-width: 901px)").addEventListener("change", (e) => { if (e.matches) setMenu(false); });
 
-/* scroll: header, hero parallax */
+/* scroll: hero parallax */
 let ticking = false;
 function onScroll() {
   ticking = false;
